@@ -7,38 +7,30 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <!-- google-map -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCr4VoR66tArw0vgVBl032hME1pcp8dvLE"></script>
-
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css" />
-
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
-  <link rel="stylesheet" href="assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css" />
+  <link rel="stylesheet" href="assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
   <!-- iCheck -->
-  <link rel="stylesheet" href="assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
-  <link rel="stylesheet" href="assets/plugins/jqvmap/jqvmap.min.css" />
+  <link rel="stylesheet" href="assets/plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css" />
+  <link rel="stylesheet" href="assets/dist/css/adminlte.min.css">
   <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css" />
+  <link rel="stylesheet" href="assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Daterange picker -->
-  <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" href="assets/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
-  <link rel="stylesheet" href="assets/plugins/summernote/summernote-bs4.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Pridi:wght@200;300;400;500&display=swap" rel="stylesheet">
-  <style>
-    * {
-      font-family: 'Pridi', sans-serif;
-    }
-  </style>
+  <link rel="stylesheet" href="assets/plugins/summernote/summernote-bs4.min.css">
 </head>
 
-<body>
+<body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
     <app-root></app-root>
   </div>
@@ -47,15 +39,16 @@
   <script src="assets/plugins/jquery/jquery.min.js"></script>
   <!-- jQuery UI 1.11.4 -->
   <script src="assets/plugins/jquery-ui/jquery-ui.min.js"></script>
-
+  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+  <script>
+    $.widget.bridge('uibutton', $.ui.button)
+  </script>
   <!-- Bootstrap 4 -->
   <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- ChartJS -->
   <script src="assets/plugins/chart.js/Chart.min.js"></script>
-  <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-  <script>
-    $.widget.bridge("uibutton", $.ui.button);
-  </script>
+  <!-- Sparkline -->
+  <script src="assets/plugins/sparklines/sparkline.js"></script>
   <!-- jQuery Knob Chart -->
   <script src="assets/plugins/jquery-knob/jquery.knob.min.js"></script>
   <!-- daterangepicker -->
@@ -69,7 +62,6 @@
   <script src="assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
   <script src="assets/dist/js/adminlte.js"></script>
-  <script src="https://www.gstatic.com/charts/loader.js"></script>
 </body>
 
 </html>

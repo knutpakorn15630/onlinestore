@@ -73,9 +73,7 @@
       $('body').removeClass('dark-mode')
     }
   })
-  var $dark_mode_container = $('<div />', {
-    class: 'mb-4'
-  }).append($dark_mode_checkbox).append('<span>Dark Mode</span>')
+  var $dark_mode_container = $('<div />', { class: 'mb-4' }).append($dark_mode_checkbox).append('<span>Dark Mode</span>')
   $container.append($dark_mode_container)
 
   $container.append('<h6>Header Options</h6>')
@@ -91,9 +89,7 @@
       $('body').removeClass('layout-navbar-fixed')
     }
   })
-  var $header_fixed_container = $('<div />', {
-    class: 'mb-1'
-  }).append($header_fixed_checkbox).append('<span>Fixed</span>')
+  var $header_fixed_container = $('<div />', { class: 'mb-1' }).append($header_fixed_checkbox).append('<span>Fixed</span>')
   $container.append($header_fixed_container)
 
   var $dropdown_legacy_offset_checkbox = $('<input />', {
@@ -108,9 +104,7 @@
       $('.main-header').removeClass('dropdown-legacy')
     }
   })
-  var $dropdown_legacy_offset_container = $('<div />', {
-    class: 'mb-1'
-  }).append($dropdown_legacy_offset_checkbox).append('<span>Dropdown Legacy Offset</span>')
+  var $dropdown_legacy_offset_container = $('<div />', { class: 'mb-1' }).append($dropdown_legacy_offset_checkbox).append('<span>Dropdown Legacy Offset</span>')
   $container.append($dropdown_legacy_offset_container)
 
   var $no_border_checkbox = $('<input />', {
@@ -125,9 +119,7 @@
       $('.main-header').removeClass('border-bottom-0')
     }
   })
-  var $no_border_container = $('<div />', {
-    class: 'mb-4'
-  }).append($no_border_checkbox).append('<span>No border</span>')
+  var $no_border_container = $('<div />', { class: 'mb-4' }).append($no_border_checkbox).append('<span>No border</span>')
   $container.append($no_border_container)
 
   $container.append('<h6>Sidebar Options</h6>')
@@ -146,9 +138,7 @@
       $(window).trigger('resize')
     }
   })
-  var $sidebar_collapsed_container = $('<div />', {
-    class: 'mb-1'
-  }).append($sidebar_collapsed_checkbox).append('<span>Collapsed</span>')
+  var $sidebar_collapsed_container = $('<div />', { class: 'mb-1' }).append($sidebar_collapsed_checkbox).append('<span>Collapsed</span>')
   $container.append($sidebar_collapsed_container)
 
   $(document).on('collapsed.lte.pushmenu', '[data-widget="pushmenu"]', function () {
@@ -172,9 +162,7 @@
       $(window).trigger('resize')
     }
   })
-  var $sidebar_fixed_container = $('<div />', {
-    class: 'mb-1'
-  }).append($sidebar_fixed_checkbox).append('<span>Fixed</span>')
+  var $sidebar_fixed_container = $('<div />', { class: 'mb-1' }).append($sidebar_fixed_checkbox).append('<span>Fixed</span>')
   $container.append($sidebar_fixed_container)
 
   var $sidebar_mini_checkbox = $('<input />', {
@@ -189,9 +177,7 @@
       $('body').removeClass('sidebar-mini')
     }
   })
-  var $sidebar_mini_container = $('<div />', {
-    class: 'mb-1'
-  }).append($sidebar_mini_checkbox).append('<span>Sidebar Mini</span>')
+  var $sidebar_mini_container = $('<div />', { class: 'mb-1' }).append($sidebar_mini_checkbox).append('<span>Sidebar Mini</span>')
   $container.append($sidebar_mini_container)
 
   var $sidebar_mini_md_checkbox = $('<input />', {
@@ -206,9 +192,7 @@
       $('body').removeClass('sidebar-mini-md')
     }
   })
-  var $sidebar_mini_md_container = $('<div />', {
-    class: 'mb-1'
-  }).append($sidebar_mini_md_checkbox).append('<span>Sidebar Mini MD</span>')
+  var $sidebar_mini_md_container = $('<div />', { class: 'mb-1' }).append($sidebar_mini_md_checkbox).append('<span>Sidebar Mini MD</span>')
   $container.append($sidebar_mini_md_container)
 
   var $sidebar_mini_xs_checkbox = $('<input />', {
@@ -223,9 +207,7 @@
       $('body').removeClass('sidebar-mini-xs')
     }
   })
-  var $sidebar_mini_xs_container = $('<div />', {
-    class: 'mb-1'
-  }).append($sidebar_mini_xs_checkbox).append('<span>Sidebar Mini XS</span>')
+  var $sidebar_mini_xs_container = $('<div />', { class: 'mb-1' }).append($sidebar_mini_xs_checkbox).append('<span>Sidebar Mini XS</span>')
   $container.append($sidebar_mini_xs_container)
 
   var $flat_sidebar_checkbox = $('<input />', {
@@ -240,9 +222,7 @@
       $('.nav-sidebar').removeClass('nav-flat')
     }
   })
-  var $flat_sidebar_container = $('<div />', {
-    class: 'mb-1'
-  }).append($flat_sidebar_checkbox).append('<span>Nav Flat Style</span>')
+  var $flat_sidebar_container = $('<div />', { class: 'mb-1' }).append($flat_sidebar_checkbox).append('<span>Nav Flat Style</span>')
   $container.append($flat_sidebar_container)
 
   var $legacy_sidebar_checkbox = $('<input />', {
@@ -257,9 +237,7 @@
       $('.nav-sidebar').removeClass('nav-legacy')
     }
   })
-  var $legacy_sidebar_container = $('<div />', {
-    class: 'mb-1'
-  }).append($legacy_sidebar_checkbox).append('<span>Nav Legacy Style</span>')
+  var $legacy_sidebar_container = $('<div />', { class: 'mb-1' }).append($legacy_sidebar_checkbox).append('<span>Nav Legacy Style</span>')
   $container.append($legacy_sidebar_container)
 
   var $compact_sidebar_checkbox = $('<input />', {
@@ -274,9 +252,7 @@
       $('.nav-sidebar').removeClass('nav-compact')
     }
   })
-  var $compact_sidebar_container = $('<div />', {
-    class: 'mb-1'
-  }).append($compact_sidebar_checkbox).append('<span>Nav Compact</span>')
+  var $compact_sidebar_container = $('<div />', { class: 'mb-1' }).append($compact_sidebar_checkbox).append('<span>Nav Compact</span>')
   $container.append($compact_sidebar_container)
 
   var $child_indent_sidebar_checkbox = $('<input />', {
@@ -291,9 +267,7 @@
       $('.nav-sidebar').removeClass('nav-child-indent')
     }
   })
-  var $child_indent_sidebar_container = $('<div />', {
-    class: 'mb-1'
-  }).append($child_indent_sidebar_checkbox).append('<span>Nav Child Indent</span>')
+  var $child_indent_sidebar_container = $('<div />', { class: 'mb-1' }).append($child_indent_sidebar_checkbox).append('<span>Nav Child Indent</span>')
   $container.append($child_indent_sidebar_container)
 
   var $child_hide_sidebar_checkbox = $('<input />', {
@@ -308,9 +282,7 @@
       $('.nav-sidebar').removeClass('nav-collapse-hide-child')
     }
   })
-  var $child_hide_sidebar_container = $('<div />', {
-    class: 'mb-1'
-  }).append($child_hide_sidebar_checkbox).append('<span>Nav Child Hide on Collapse</span>')
+  var $child_hide_sidebar_container = $('<div />', { class: 'mb-1' }).append($child_hide_sidebar_checkbox).append('<span>Nav Child Hide on Collapse</span>')
   $container.append($child_hide_sidebar_container)
 
   var $no_expand_sidebar_checkbox = $('<input />', {
@@ -325,9 +297,7 @@
       $('.main-sidebar').removeClass('sidebar-no-expand')
     }
   })
-  var $no_expand_sidebar_container = $('<div />', {
-    class: 'mb-4'
-  }).append($no_expand_sidebar_checkbox).append('<span>Disable Hover/Focus Auto-Expand</span>')
+  var $no_expand_sidebar_container = $('<div />', { class: 'mb-4' }).append($no_expand_sidebar_checkbox).append('<span>Disable Hover/Focus Auto-Expand</span>')
   $container.append($no_expand_sidebar_container)
 
   $container.append('<h6>Footer Options</h6>')
@@ -343,9 +313,7 @@
       $('body').removeClass('layout-footer-fixed')
     }
   })
-  var $footer_fixed_container = $('<div />', {
-    class: 'mb-4'
-  }).append($footer_fixed_checkbox).append('<span>Fixed</span>')
+  var $footer_fixed_container = $('<div />', { class: 'mb-4' }).append($footer_fixed_checkbox).append('<span>Fixed</span>')
   $container.append($footer_fixed_container)
 
   $container.append('<h6>Small Text Options</h6>')
@@ -362,9 +330,7 @@
       $('body').removeClass('text-sm')
     }
   })
-  var $text_sm_body_container = $('<div />', {
-    class: 'mb-1'
-  }).append($text_sm_body_checkbox).append('<span>Body</span>')
+  var $text_sm_body_container = $('<div />', { class: 'mb-1' }).append($text_sm_body_checkbox).append('<span>Body</span>')
   $container.append($text_sm_body_container)
 
   var $text_sm_header_checkbox = $('<input />', {
@@ -379,9 +345,7 @@
       $('.main-header').removeClass('text-sm')
     }
   })
-  var $text_sm_header_container = $('<div />', {
-    class: 'mb-1'
-  }).append($text_sm_header_checkbox).append('<span>Navbar</span>')
+  var $text_sm_header_container = $('<div />', { class: 'mb-1' }).append($text_sm_header_checkbox).append('<span>Navbar</span>')
   $container.append($text_sm_header_container)
 
   var $text_sm_brand_checkbox = $('<input />', {
@@ -396,9 +360,7 @@
       $('.brand-link').removeClass('text-sm')
     }
   })
-  var $text_sm_brand_container = $('<div />', {
-    class: 'mb-1'
-  }).append($text_sm_brand_checkbox).append('<span>Brand</span>')
+  var $text_sm_brand_container = $('<div />', { class: 'mb-1' }).append($text_sm_brand_checkbox).append('<span>Brand</span>')
   $container.append($text_sm_brand_container)
 
   var $text_sm_sidebar_checkbox = $('<input />', {
@@ -413,9 +375,7 @@
       $('.nav-sidebar').removeClass('text-sm')
     }
   })
-  var $text_sm_sidebar_container = $('<div />', {
-    class: 'mb-1'
-  }).append($text_sm_sidebar_checkbox).append('<span>Sidebar Nav</span>')
+  var $text_sm_sidebar_container = $('<div />', { class: 'mb-1' }).append($text_sm_sidebar_checkbox).append('<span>Sidebar Nav</span>')
   $container.append($text_sm_sidebar_container)
 
   var $text_sm_footer_checkbox = $('<input />', {
@@ -430,9 +390,7 @@
       $('.main-footer').removeClass('text-sm')
     }
   })
-  var $text_sm_footer_container = $('<div />', {
-    class: 'mb-4'
-  }).append($text_sm_footer_checkbox).append('<span>Footer</span>')
+  var $text_sm_footer_container = $('<div />', { class: 'mb-4' }).append($text_sm_footer_checkbox).append('<span>Footer</span>')
   $container.append($text_sm_footer_container)
 
   // Color Arrays
@@ -564,12 +522,12 @@
     $main_header.addClass(color)
   })
 
-  // let active_navbar_color = null
-  // $('.main-header')[0].classList.forEach(function (className) {
-  //   if (navbar_all_colors.indexOf(className) > -1 && active_navbar_color === null) {
-  //     active_navbar_color = className.replace('navbar-', 'bg-')
-  //   }
-  // })
+  var active_navbar_color = null
+  $('.main-header')[0].classList.forEach(function (className) {
+    if (navbar_all_colors.indexOf(className) > -1 && active_navbar_color === null) {
+      active_navbar_color = className.replace('navbar-', 'bg-')
+    }
+  })
 
   $navbar_variants_colors.find('option.' + active_navbar_color).prop('selected', true)
   $navbar_variants_colors.removeClass().addClass('custom-select mb-3 text-light border-0 ').addClass(active_navbar_color)
