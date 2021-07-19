@@ -2,10 +2,34 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-10">
+                <div class="col-2">
                     <h1>รายการสั่งซื้อ</h1>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-5">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn bg-primary">
+                            <input type="radio" name="options" id="option_a1" autocomplete="off" checked=""> รายการใหม่
+                        </label>
+                        <label class="btn bg-success active">
+                            <input type="radio" name="options" id="option_a2" autocomplete="off"> ชำระเงินแล้ว
+                        </label>
+                        <label class="btn bg-warning">
+                            <input type="radio" name="options" id="option_a3" autocomplete="off"> ส่งของแล้ว
+                        </label>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <form action="simple-results.html">
+                        <div class="input-group">
+                            <input type="search" class="form-control form-control"
+                                placeholder="ค้นหา">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-default">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -31,7 +55,7 @@
                                         <!-- <th style="width: 150px"></th> -->
                                     </tr>
                                 </thead>
-                                <tbody >
+                                <tbody>
                                     <tr>
                                         <td></td>
                                         <td></td>
@@ -39,7 +63,7 @@
                                         <td></td>
                                     </tr>
                                 </tbody>
-                                <tbody >
+                                <tbody>
                                     <tr>
                                         <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
                                     </tr>

@@ -9,6 +9,7 @@ import { MembersComponent } from './components/members/members.component';
 import { OrderlistComponent } from './components/orderlist/orderlist.component';
 import { TypestokComponent } from './components/typestok/typestok.component';
 import { BanksComponent } from './components/banks/banks.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { BanksComponent } from './components/banks/banks.component';
     MembersComponent,
     OrderlistComponent,
     TypestokComponent,
-    BanksComponent
+    BanksComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

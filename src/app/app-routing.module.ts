@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BanksComponent } from './components/banks/banks.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { LoginComponent } from './components/login/login.component';
 import { MembersComponent } from './components/members/members.component';
 import { OrderlistComponent } from './components/orderlist/orderlist.component';
 import { StockComponent } from './components/stock/stock.component';
@@ -35,6 +36,10 @@ const routes: Routes = [
         component: TypestokComponent
       }
     ]
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 
