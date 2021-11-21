@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ReqCreateCustomer, ReqCustomer, ResCreateCustomer, ResCustomer } from '../interface/customer.interface';
+import { ReqCreateCustomer, ReqCustomer, ReqUpdateCustomer, ResCreateCustomer, ResCustomer, ResUpdateCustomer } from '../interface/customer.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -15,8 +15,11 @@ export class ApiService {
   public getCustomer(body: ReqCustomer): Observable<ResCustomer> {
     return this.httpClient.post<ResCustomer>(`${this.apiURL}/api/customer/getCustomer`, body);
   }
-  public createReport(body: ReqCreateCustomer): Observable<ResCreateCustomer> {
+  public createCustomer(body: ReqCreateCustomer): Observable<ResCreateCustomer> {
     return this.httpClient.post<ResCreateCustomer>(`${this.apiURL}/api/customer/createCustomer`, body);
+  }
+  public updateCustomer(body: ReqUpdateCustomer): Observable<ResUpdateCustomer> {
+    return this.httpClient.post<ResUpdateCustomer>(`${this.apiURL}/api/customer/updateCustomer`, body);
   }
 
 }

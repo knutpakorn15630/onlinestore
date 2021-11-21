@@ -41,3 +41,25 @@ export interface ResCreateCustomer {
     updatedAt: string;
     createdAt: string;
 }
+
+export interface ReqUpdateCustomer {
+    id: number;
+    userName: string;
+    passWord: string;
+    firstName: string;
+    lastName: string;
+    gmail: string;
+    phoneNumber: string;
+}
+
+export interface ResUpdateCustomer {
+    id: number;
+    userName: string;
+    passWord: string;
+    firstName: string;
+    lastName: string;
+    gmail: string;
+    phoneNumber: string;
+    createdAt: string;
+    updatedAt: string;
+}

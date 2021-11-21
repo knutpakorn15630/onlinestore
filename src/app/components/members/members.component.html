@@ -35,7 +35,8 @@
                                         </div>
                                     </div>
                                     <div class="col-5" style="margin-top: 0px;">
-                                        <button type="button" class="btn btn-primary btn-sm float-right"(click)="openModelCreatCustomer()"><i class="fas fa-plus"></i>
+                                        <button type="button" class="btn btn-primary btn-sm float-right"
+                                            (click)="openModelCreatCustomer()"><i class="fas fa-plus"></i>
                                             เพิ่มข้อมูล</button>
                                     </div>
                                 </div>
@@ -53,9 +54,8 @@
                                             <th>ชื่อ-นามสกุล</th>
                                             <th>เบอร์โทร</th>
                                             <th>gmail</th>
-                                            <th>ที่อยู่</th>
-                                            <th></th>
-                                            <!-- <th style="width: 150px"></th> -->
+                                            <th style="width: 90px"></th>
+                                            <th style="width: 90px"></th>
                                         </tr>
                                     </thead>
                                     <tbody *ngIf="DataCustomer && DataCustomer.data && DataCustomer.data.length > 0">
@@ -65,8 +65,10 @@
                                             <td>{{test.firstName + ' ' + test.lastName}} </td>
                                             <td>{{test.phoneNumber}}</td>
                                             <td>{{test.gmail}}</td>
-                                            <td></td>
-                                            <td></td>
+                                            <td><button type="button" class="btn btn-block bg-warning">แก้ไขข้อมูล</button>
+                                            </td>
+                                            <td><button type="button" class="btn btn-block bg-danger">ลบข้อมูล</button>
+                                            </td>
                                         </tr>
                                     </tbody>
                                     <!-- <tbody
@@ -103,7 +105,7 @@
                                 <label>Username</label>
                                 <span style="color: red;">*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder=""
-                                [(ngModel)]="ngCustomer.userName"   name="username">
+                                    [(ngModel)]="ngCustomer.userName" name="username">
                             </div>
                         </div>
                         <div class="col-6">
@@ -111,7 +113,7 @@
                                 <label>Password</label>
                                 <span style="color: red;">*</span>
                                 <input type="password" class="form-control" maxlength="60" placeholder=""
-                                [(ngModel)]="ngCustomer.passWord"   name="password">
+                                    [(ngModel)]="ngCustomer.passWord" name="password">
                             </div>
                         </div>
                         <div class="col-6">
@@ -119,7 +121,7 @@
                                 <label>ชื่อ</label>
                                 <span style="color: red;">*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder=""
-                                [(ngModel)]="ngCustomer.firstName"   name="ชื่อ">
+                                    [(ngModel)]="ngCustomer.firstName" name="ชื่อ">
                             </div>
                         </div>
                         <div class="col-6">
@@ -127,7 +129,7 @@
                                 <label>นามสกุล</label>
                                 <span style="color: red;">*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder=""
-                                [(ngModel)]="ngCustomer.lastName"   name="นามสกุล">
+                                    [(ngModel)]="ngCustomer.lastName" name="นามสกุล">
                             </div>
                         </div>
                         <div class="col-8">
@@ -135,7 +137,7 @@
                                 <label>Gmail</label>
                                 <span style="color: red;">*</span>
                                 <input type="email" class="form-control" maxlength="60" placeholder=""
-                                [(ngModel)]="ngCustomer.gmail"   name="Gmail">
+                                    [(ngModel)]="ngCustomer.gmail" name="Gmail">
                             </div>
                         </div>
                         <div class="col-4">
@@ -143,7 +145,7 @@
                                 <label>เบอร์โทร</label>
                                 <span style="color: red;">*</span>
                                 <input type="tel" class="form-control" maxlength="60" placeholder=""
-                                [(ngModel)]="ngCustomer.phoneNumber" maxlength="10"   name="เบอร์โทร">
+                                    [(ngModel)]="ngCustomer.phoneNumber" maxlength="10" name="เบอร์โทร">
                             </div>
                         </div>
                     </div>

@@ -100,7 +100,7 @@ export class MembersComponent implements OnInit {
       });
       return;
     }
-    this.callApi.createReport(body).subscribe(
+    this.callApi.createCustomer(body).subscribe(
       (res) => {
         this.Toast.fire({
           icon: 'success',
