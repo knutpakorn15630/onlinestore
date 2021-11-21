@@ -10,6 +10,12 @@ import { OrderlistComponent } from './components/orderlist/orderlist.component';
 import { TypestokComponent } from './components/typestok/typestok.component';
 import { BanksComponent } from './components/banks/banks.component';
 import { LoginComponent } from './components/login/login.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ShopsComponent } from './components/shops/shops.component';
+import { HomeComponent } from './components/home/home.component';
+import { ShopUserComponent } from './components/shop-user/shop-user.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { BartPipe } from './services/bart.pipe';
 
 @NgModule({
   declarations: [
@@ -20,13 +26,19 @@ import { LoginComponent } from './components/login/login.component';
     OrderlistComponent,
     TypestokComponent,
     BanksComponent,
-    LoginComponent
+    LoginComponent,
+    ShopsComponent,
+    HomeComponent,
+    ShopUserComponent,
+    ContactComponent,
+    BartPipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

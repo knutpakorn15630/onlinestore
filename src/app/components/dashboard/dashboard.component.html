@@ -15,57 +15,56 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="assets/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="assets/dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">Nutpakorn Junluan</a>
             </div>
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
+                <!-- Add icons to the links using the .nav-icon classwith font-awesome or any other icon font library -->
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                     data-accordion="false">
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                         <a class="nav-link active" routerLink='/dashboard/chart'>
                             <i class="fas fa-chart-pie"></i>
                             <p>&nbsp; หน้าหลัก</p>
                         </a>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
-                        <a class="nav-link" routerLink='/dashboard/orderlist'>
+                        <a class="nav-link"  routerLink='/dashboard/orderList'  (click)="checkButton(1)" [ngClass]="{'active': this.IsColor === 1}">
                             <i class="fas fa-table"></i>
                             <p>&nbsp; รายการสั่งซื้อ</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink='/dashboard/stock'>
+                        <a class="nav-link" routerLink='/dashboard/typeStock' (click)="checkButton(2)" [ngClass]="{'active': this.IsColor === 2}">
                             <i class="far fa-bookmark"></i>
                             <p>&nbsp; ประเภทสินค้า</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink='/dashboard/stock'>
+                        <a class="nav-link" routerLink='/dashboard/stock' (click)="checkButton(3)" [ngClass]="{'active': this.IsColor === 3}">
                             <i class="fas fa-store"></i>
                             <p>&nbsp; สินค้า</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink='/dashboard/banks'>
+                        <a class="nav-link" routerLink='/dashboard/banks' (click)="checkButton(4)" [ngClass]="{'active': this.IsColor === 4}">
                             <i class="fas fa-university"></i>
                             <p>&nbsp; ธนาคาร</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" routerLink='/dashboard/member'>
+                        <a class="nav-link" routerLink='/dashboard/member' (click)="checkButton(5)" [ngClass]="{'active': this.IsColor === 5}">
                             <i class="fas fa-user"></i>
                             <p>&nbsp; สมาชิก</p>
                         </a>
                     </li>
-                    <li class="nav-item" style="cursor: pointer;">
+                    <li class="nav-item" style="cursor: pointer;" (click)="checkButton(6)" [ngClass]="{'active': this.IsColor === 6}">
                         <a class="nav-link">
                             <i class="fas fa-sign-out-alt"></i>
                             <p>&nbsp; ออกจากระบบ</p>

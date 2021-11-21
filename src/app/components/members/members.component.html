@@ -14,45 +14,145 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-outline card-primary">
-                        <!-- /.card-header -->
-                        <div class="card-body p-0">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th >สถานะ</th>
-                                        <th>Username</th>
-                                        <th>Password</th>
-                                        <th>ชื่อ-นามสกุล</th>
-                                        <th>อายุ</th>
-                                        <th>เบอร์โทร</th>
-                                        <th>ที่อยู่</th>
-                                        <th></th>
-                                        <th></th>
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- <h3 class="card-title">Responsive Hover Table</h3> -->
+                            <!-- <div class="card-title">
+                                <button type="button" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Add item</button>
+                            </div> -->
+                            <div class="card-tools">
+                                <div class="row">
+                                    <div class="col-7" style="margin-top: 4px;">
+                                        <div class="input-group input-group-sm" style="width: 150px;">
+                                            <input type="text" name="table_search" class="form-control float-right"
+                                                placeholder="Search">
 
-                                        <!-- <th style="width: 150px"></th> -->
-                                    </tr>
-                                </thead>
-                                <tbody >
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                                <tbody >
-                                    <tr>
-                                        <td colspan="20" style="text-align: center;">ไม่มีข้อมูล</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5" style="margin-top: 0px;">
+                                        <button type="button" class="btn btn-primary btn-sm float-right"(click)="openModelCreatCustomer()"><i class="fas fa-plus"></i>
+                                            เพิ่มข้อมูล</button>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <!-- /.card-body -->
+                        <div class="card-body table-responsive p-0">
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>Username</th>
+                                            <th>Password</th>
+                                            <th>ชื่อ-นามสกุล</th>
+                                            <th>เบอร์โทร</th>
+                                            <th>gmail</th>
+                                            <th>ที่อยู่</th>
+                                            <th></th>
+                                            <!-- <th style="width: 150px"></th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="DataCustomer && DataCustomer.data && DataCustomer.data.length > 0">
+                                        <tr *ngFor="let test of DataCustomer.data ; index as i">
+                                            <td>{{test.userName}}</td>
+                                            <td>{{test.passWord}}</td>
+                                            <td>{{test.firstName + ' ' + test.lastName}} </td>
+                                            <td>{{test.phoneNumber}}</td>
+                                            <td>{{test.gmail}}</td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                    <!-- <tbody
+                                        *ngIf="!DataCustomer && !DataCustomer.data && DataCustomer.data.length === 0">
+                                        <tr>
+                                            <td colspan="20" style="text-align: center;">ไม่มีข้อมูล</td>
+                                        </tr>
+                                    </tbody> -->
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+</div>
 
+<div class="modal fade bd-example-modal-lg" id="contentCreatCustomer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลสมาชิก</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngCustomer.userName"   name="username">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <span style="color: red;">*</span>
+                                <input type="password" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngCustomer.passWord"   name="password">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngCustomer.firstName"   name="ชื่อ">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>นามสกุล</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngCustomer.lastName"   name="นามสกุล">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label>Gmail</label>
+                                <span style="color: red;">*</span>
+                                <input type="email" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngCustomer.gmail"   name="Gmail">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>เบอร์โทร</label>
+                                <span style="color: red;">*</span>
+                                <input type="tel" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngCustomer.phoneNumber" maxlength="10"   name="เบอร์โทร">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" (click)="createDeliver()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

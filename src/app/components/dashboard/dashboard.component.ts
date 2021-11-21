@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
+  IsColor = 0;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  checkButton(isNumber){
+    // setTimeout(() => {
+    //   this.IsColor = 0;
+    // }, 300);
+    this.IsColor = isNumber;
+  }
 }
