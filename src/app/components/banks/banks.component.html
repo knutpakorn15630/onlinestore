@@ -1,3 +1,4 @@
+
 <div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
     <section class="content-header">
         <div class="container-fluid">
@@ -14,46 +15,221 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-outline card-primary">
-                        <!-- /.card-header -->
-                        <div class="card-body p-0">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>ธนาคาร</th>
-                                        <th>ชื่อ</th>
-                                        <th>ประเภท</th>
-                                        <th>เลขบัญชี</th>
-                                        <th>สาขา</th>
-                                        <th></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody >
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                                <tbody >
-                                    <tr>
-                                        <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- <h3 class="card-title">Responsive Hover Table</h3> -->
+                            <!-- <div class="card-title">
+                                <button type="button" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Add item</button>
+                            </div> -->
+                            <div class="card-tools">
+                                <div class="row">
+                                    <div class="col-7" style="margin-top: 4px;">
+                                        <div class="input-group input-group-sm" style="width: 150px;">
+                                            <input type="text" name="table_search" class="form-control float-right"
+                                                placeholder="Search">
+
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5" style="margin-top: 0px;">
+                                        <button type="button" class="btn btn-primary btn-sm float-right"
+                                        (click)="openModelCreatBanks()" ><i class="fas fa-plus"></i>
+                                            เพิ่มข้อมูล</button>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <!-- /.card-body -->
+                        <div class="card-body table-responsive p-0">
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>ธนาคาร</th>
+                                            <th>ชื่อ</th>
+                                            <th>ประเภท</th>
+                                            <th>เลขบัญชี</th>
+                                            <th>สาขา</th>
+                                            <th style="width: 90px"></th>
+                                            <th style="width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="DataBanks && DataBanks.data && DataBanks.data.length > 0">
+                                        <tr *ngFor="let showBanks of DataBanks.data ; index as i">
+                                            <td>{{showBanks.bankName}}</td>
+                                            <td>{{showBanks.firstName + ' ' + showBanks.lastName}} </td>
+                                            <td>{{showBanks.typeBk}}</td>
+                                            <td>{{showBanks.accountNumber}}</td>
+                                            <td>{{showBanks.branch}}</td>
+                                            <td><button type="button" class="btn btn-block bg-warning"
+                                                (click)="ShowUpdateBanks(showBanks.id)">แก้ไขข้อมูล</button>
+                                            </td>
+                                            <td><button type="button" class="btn btn-block bg-danger"
+                                                (click)="openModelSureDeleted(showBanks.id)">ลบข้อมูล</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <!-- <tbody
+                                        *ngIf="!DataCustomer && !DataCustomer.data && DataCustomer.data.length === 0">
+                                        <tr>
+                                            <td colspan="20" style="text-align: center;">ไม่มีข้อมูล</td>
+                                        </tr>
+                                    </tbody> -->
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
 </div>
+
+<div class="modal fade bd-example-modal-lg" id="contentCreatBanks">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลธนาคาร</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ธนาคาร</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.bankName" name="bankName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ประเภท</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.typeBk" name="typeBk">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.firstName" name="firstName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>นามสกุล</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.lastName" name="lastName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>เลขบัญชี</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control"  placeholder=""
+                                    [(ngModel)]="ngBanks.accountNumber" maxlength="10" name="accountNumber">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>สาขา</label>
+                                <span style="color: red;">*</span>
+                                <input type="tel" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.branch"  name="branch">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="createDataBanks()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateBanks">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูลธนาคาร</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ธนาคาร</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.bankName" name="bankName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ประเภท</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.typeBk" name="typeBk">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.firstName" name="firstName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>นามสกุล</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.lastName" name="lastName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>เลขบัญชี</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control"  placeholder=""
+                                [(ngModel)]="ngUpdateBanks.accountNumber" maxlength="10" name="accountNumber">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>สาขา</label>
+                                <span style="color: red;">*</span>
+                                <input type="tel" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.branch"  name="branch">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateBanks()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

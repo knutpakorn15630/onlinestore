@@ -59,15 +59,15 @@
                                         </tr>
                                     </thead>
                                     <tbody *ngIf="DataCustomer && DataCustomer.data && DataCustomer.data.length > 0">
-                                        <tr *ngFor="let test of DataCustomer.data ; index as i">
-                                            <td>{{test.userName}}</td>
-                                            <td>{{test.passWord}}</td>
-                                            <td>{{test.firstName + ' ' + test.lastName}} </td>
-                                            <td>{{test.phoneNumber}}</td>
-                                            <td>{{test.gmail}}</td>
-                                            <td><button type="button" class="btn btn-block bg-warning">แก้ไขข้อมูล</button>
+                                        <tr *ngFor="let showMember of DataCustomer.data ; index as i">
+                                            <td>{{showMember.userName}}</td>
+                                            <td>{{showMember.passWord}}</td>
+                                            <td>{{showMember.firstName + ' ' + showMember.lastName}} </td>
+                                            <td>{{showMember.phoneNumber}}</td>
+                                            <td>{{showMember.gmail}}</td>
+                                            <td><button type="button" class="btn btn-block bg-warning" (click)="ShowUpdateShop(showMember.id)">แก้ไขข้อมูล</button>
                                             </td>
-                                            <td><button type="button" class="btn btn-block bg-danger">ลบข้อมูล</button>
+                                            <td><button type="button" class="btn btn-block bg-danger" (click)="openModelSureDeleted(showMember.id)">ลบข้อมูล</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -86,6 +86,77 @@
             </div>
         </div>
     </section>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateCustomer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title"> แก้ไขข้อมูลสมาชิก</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateCustomer.userName" name="username">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateCustomer.passWord" name="password">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateCustomer.firstName" name="ชื่อ">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>นามสกุล</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateCustomer.lastName" name="นามสกุล">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label>Gmail</label>
+                                <span style="color: red;">*</span>
+                                <input type="email" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateCustomer.gmail" name="Gmail">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>เบอร์โทร</label>
+                                <span style="color: red;">*</span>
+                                <input type="tel" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateCustomer.phoneNumber" maxlength="10" name="เบอร์โทร">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateShop()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade bd-example-modal-lg" id="contentCreatCustomer">
@@ -121,7 +192,7 @@
                                 <label>ชื่อ</label>
                                 <span style="color: red;">*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder=""
-                                    [(ngModel)]="ngCustomer.firstName" name="ชื่อ">
+                                    [(ngModel)]="ngCustomer.firstName" name="firstName">
                             </div>
                         </div>
                         <div class="col-6">
@@ -129,7 +200,7 @@
                                 <label>นามสกุล</label>
                                 <span style="color: red;">*</span>
                                 <input type="text" class="form-control" maxlength="60" placeholder=""
-                                    [(ngModel)]="ngCustomer.lastName" name="นามสกุล">
+                                    [(ngModel)]="ngCustomer.lastName" name="lastName">
                             </div>
                         </div>
                         <div class="col-8">
@@ -145,14 +216,15 @@
                                 <label>เบอร์โทร</label>
                                 <span style="color: red;">*</span>
                                 <input type="tel" class="form-control" maxlength="60" placeholder=""
-                                    [(ngModel)]="ngCustomer.phoneNumber" maxlength="10" name="เบอร์โทร">
+                                    [(ngModel)]="ngCustomer.phoneNumber" maxlength="10" name="phoneNumber">
                             </div>
                         </div>
+                        {{ngCustomer | json}}
                     </div>
                 </div>
                 <!-- {{ngDelivery|json}} -->
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" (click)="createDeliver()">Save</button>
+                    <button type="button" class="btn btn-primary" (click)="createDeliver()">Save</button>
                 </div>
             </div>
         </div>

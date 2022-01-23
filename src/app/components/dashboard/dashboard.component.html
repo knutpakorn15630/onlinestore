@@ -18,7 +18,7 @@
                 <img src="assets/dist/img/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Nutpakorn Junluan</a>
+                <a href="#" class="d-block">ระบบจัดการฐานข้อมูล</a>
             </div>
         </div>
 
@@ -41,6 +41,12 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" routerLink='/dashboard/adminshop' (click)="checkButton(7)" [ngClass]="{'active': this.IsColor === 7}">
+                            <i class="fas fa-store"></i>
+                            <p>&nbsp; ร้านค้า</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" routerLink='/dashboard/typeStock' (click)="checkButton(2)" [ngClass]="{'active': this.IsColor === 2}">
                             <i class="far fa-bookmark"></i>
                             <p>&nbsp; ประเภทสินค้า</p>
@@ -48,7 +54,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" routerLink='/dashboard/stock' (click)="checkButton(3)" [ngClass]="{'active': this.IsColor === 3}">
-                            <i class="fas fa-store"></i>
+                            <i class="fab fa-shopify"></i>
                             <p>&nbsp; สินค้า</p>
                         </a>
                     </li>
@@ -82,8 +88,7 @@
     <router-outlet></router-outlet>
 </div>
 <footer class="main-footer">
-    <strong>Nutpakorn © 2014-2021 <a href="https://adminlte.io">Junluan</a>.</strong>
-    facebook.
+    <strong>Created by Nutpakorn AND Natnaree .</strong>
     <div class="float-right d-none d-sm-inline-block">
         <b>Version</b> 3.1.0
     </div>

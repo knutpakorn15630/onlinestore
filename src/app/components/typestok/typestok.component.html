@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-10">
-                    <h1>สินค้า</h1>
+                    <h1>ประเภทสินค้า</h1>
                 </div>
                 <div class="col-sm-2">
                 </div>
@@ -14,39 +14,133 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <div class="card card-outline card-primary">
-                        <!-- /.card-header -->
-                        <div class="card-body p-0">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>ชื่อ</th>
-                                        <th>แก้ไข</th>
-                                        <th>ลบ</th>
-                                        <!-- <th style="width: 150px"></th> -->
-                                    </tr>
-                                </thead>
-                                <tbody >
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                                <tbody >
-                                    <tr>
-                                        <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="card">
+                        <div class="card-header">
+                            <!-- <h3 class="card-title">Responsive Hover Table</h3> -->
+                            <!-- <div class="card-title">
+                                <button type="button" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Add item</button>
+                            </div> -->
+                            <div class="card-tools">
+                                <div class="row">
+                                    <div class="col-7" style="margin-top: 4px;">
+                                        <div class="input-group input-group-sm" style="width: 150px;">
+                                            <input type="text" name="table_search" class="form-control float-right"
+                                                placeholder="Search">
+
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-default">
+                                                    <i class="fas fa-search"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5" style="margin-top: 0px;">
+                                        <button type="button" class="btn btn-primary btn-sm float-right"
+                                            (click)="openModelCreateTypeStoke()"><i class="fas fa-plus"></i>
+                                            เพิ่มข้อมูล</button>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <!-- /.card-body -->
+                        <div class="card-body table-responsive p-0">
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ประเภทสินค้า</th>
+                                            <th style="width: 90px"></th>
+                                            <th style="width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="DataTypeStoke && DataTypeStoke.data && DataTypeStoke.data.length > 0">
+                                        <tr *ngFor="let showMember of DataTypeStoke.data ; index as i">
+                                            <td>{{i+1}}</td>
+                                            <td>{{showMember.typeName}}</td>
+                                            <td><button type="button"
+                                                (click)="ShowUpdateTypeStoke(showMember.id)" class="btn btn-block bg-warning">แก้ไขข้อมูล</button>
+                                            </td>
+                                            <td><button type="button"
+                                                (click)="openModelSureDeleted(showMember.id)" class="btn btn-block bg-danger">ลบข้อมูล</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <!-- <tbody
+                                        *ngIf="!DataCustomer && !DataCustomer.data && DataCustomer.data.length === 0">
+                                        <tr>
+                                            <td colspan="20" style="text-align: center;">ไม่มีข้อมูล</td>
+                                        </tr>
+                                    </tbody> -->
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+</div>
 
+<div class="modal fade bd-example-modal-lg" id="contentCreatTypeStoke">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลประเภทสินค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ประเภทสินค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngCreateTypeStoke.typeName" name="typeName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="createTypeStoke()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade bd-example-modal-lg" id="contentUpdateTypeStoke">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูล</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ประเภทสินค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateTypeStoke.typeName" name="typeName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateTypeStoke()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
