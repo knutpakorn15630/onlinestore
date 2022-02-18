@@ -1,18 +1,20 @@
+<section class="content">
+    <div class="container-fluid">
 
-<div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-        <div class="col">
-            <div class="card" style="width: 15rem; margin: 1rem;">
-
-                <img src="assets/img/prod-1.jpg" class="card-img-top " alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk
-                        of the
-                        card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div class="row mt-3" *ngIf="DataStock && DataStock.data && DataStock.data.length > 0">
+            <div class="col-md-3 col-sm-6 col-12" *ngFor="let showStock of DataStock.data ; index as i">
+                <div class="card">
+                    <img *ngFor="let showImg of showStock.imgStock"
+                        [src]="'http://localhost:3200/img/resources/static/assets/upload/'+showImg.imgName"
+                        class="card-img-top " style="height: 300px ;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{showStock.productName}}</h5>
+                        <p class="card-text">{{showStock.details}}</p>
+                        <a class="btn btn-primary float-right" (click)="ShowUpdateStock(showStock.id)"><i class="fas fa-shopping-basket " ></i> เพิ่มลงตระกล้า</a>
+                    </div>
                 </div>
             </div>
         </div>
+
     </div>
-</div>
+</section>

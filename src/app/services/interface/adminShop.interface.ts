@@ -15,6 +15,24 @@ export interface DataShop {
     createdAt: string;
     updatedAt: string;
     customerId: number;
+    customer: Customer;
+    imgShop: ImgShop[];
+}
+export interface Customer {
+    id: number;
+    firstName: string;
+    lastName: string;
+    gmail: string;
+    phoneNumber: string;
+}
+export interface ImgShop {
+    id: number;
+    imgName: string;
+    imgPre: number;
+    imgGallery: any;
+    createdAt: string;
+    updatedAt: string;
+    shopId: number;
 }
 
 
@@ -43,6 +61,31 @@ export interface ResUpdateShop {
     customerId: number;
 }
 
+
+export interface ResUploadShop {
+    id: number;
+    imgName: string;
+    shopId: string;
+    imgPre: number;
+    updatedAt: string;
+    createdAt: string;
+}
+
+export interface ReqGetUserShop {
+    id: number;
+}
+
+export interface ResGetUserShop {
+    data: DataReqGetUserShop[];
+}
+
+export interface DataReqGetUserShop {
+    id: number;
+    shopName: string;
+    createdAt: string;
+    updatedAt: string;
+    customerId: number;
+}
 
 
 

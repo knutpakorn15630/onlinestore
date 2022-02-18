@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { ReqCreateCustomer, ReqCustomer, ReqUpdateCustomer, ResCreateCustomer, ResCustomer, ResUpdateCustomer } from '../interface/customer.interface';
+import { ReqCreateAddress, ReqCreateCustomer, ReqCustomer, ReqGetAddress, ReqLogin, ReqUpdateAddress, ReqUpdateCustomer,
+ResCreateAddress, ResCreateCustomer, ResCustomer, ResGetAddress, ResLogin, ResUpdateAddress, ResUpdateCustomer } from '../interface/customer.interface';
 import { Observable } from 'rxjs';
 import { ReqBanks, ReqCreateBanks, ReqUpdateBanks, ResBanks, ResCreateBanks, ResUpdateBanks } from '../interface/banks.interface';
 import { ReqCreateTypeStoke, ReqGetTypeStoke, ReqUpdateTypeStoke, ResCreateTypeStoke, ResGetTypeStoke, ResUpdateTypeStoke } from '../interface/typestoke.interface';
-import { ReqCreateShop, ReqShop, ReqUpdateShop, ResCreateShop, ResShop, ResUpdateShop } from '../interface/adminShop.interface';
+import { ReqCreateShop, ReqGetUserShop, ReqShop, ReqUpdateShop, ResCreateShop, ResGetUserShop, ResShop, ResUpdateShop, ResUploadShop } from '../interface/adminShop.interface';
+// tslint:disable-next-line:max-line-length
+import { ReqCreateStock, ReqStock, ReqUpdateStock, ReqUserStock, ResCreateStock, ResStock, ResUpdateStock, ResUploadStock, ResUserStock } from '../interface/stock.interface';
+import { ReqBasket, ReqCreateBasket, ReqUpdateBasket, ReqUserBasket, ResBasket, ResCreateBasket, ResUpdateBasket, ResUserBasket } from '../interface/basket.interface';
+import { ReqCreateReport, ReqGetReport, ResCreateReport, ResGetReport } from '../interface/report.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +26,26 @@ export class ApiService {
   public createCustomer(body: ReqCreateCustomer): Observable<ResCreateCustomer> {
     return this.httpClient.post<ResCreateCustomer>(`${this.apiURL}/api/customer/createCustomer`, body);
   }
+  public getAddress(body: ReqGetAddress): Observable<ResGetAddress> {
+    return this.httpClient.post<ResGetAddress>(`${this.apiURL}/api/customer/getUserAddress`, body);
+  }
+  public createAddress(body: ReqCreateAddress): Observable<ResCreateAddress> {
+    return this.httpClient.post<ResCreateAddress>(`${this.apiURL}/api/customer/createAddress`, body);
+  }
+  public updateAddress(body: ReqUpdateAddress): Observable<ResUpdateAddress> {
+    return this.httpClient.post<ResUpdateAddress>(`${this.apiURL}/api/customer/updateAddress`, body);
+  }
   public updateCustomer(body: ReqUpdateCustomer): Observable<ResUpdateCustomer> {
     return this.httpClient.post<ResUpdateCustomer>(`${this.apiURL}/api/customer/updateCustomer`, body);
   }
   public DeleteCustomer(id: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.apiURL}/api/customer/deleteCustomer/${id}`);
+  }
+  public deleteAddress(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.apiURL}/api/customer/deleteAddress/${id}`);
+  }
+  public getIsLogin(body: ReqLogin): Observable<ResLogin> {
+    return this.httpClient.post<ResLogin>(`${this.apiURL}/api/customer/login`, body);
   }
 
 
@@ -69,5 +89,63 @@ export class ApiService {
   public DeleteShop(id: number): Observable<any> {
     return this.httpClient.delete<any>(`${this.apiURL}/api/shop/deleteShop/${id}`);
   }
+  public getUserShop(body: ReqGetUserShop): Observable<ResGetUserShop> {
+    return this.httpClient.post<ResGetUserShop>(`${this.apiURL}/api/shop/getUserShop`, body);
+  }
+  // public DeleteShop(id: number): Observable<any> {
+  //   return this.httpClient.delete<any>(`${this.apiURL}/api/shop/uploadPre/${id}`);
+  // }
 
+  public uploadImgPre(file: any, BId: any): Observable<ResUploadShop> {
+    const formData: FormData = new FormData();
+    formData.append('upload', file, file.name);
+    return this.httpClient.post<ResUploadShop>(`${this.apiURL}/api/shop/uploadPre/${BId}`, formData);
+  }
+
+
+  public getStock(body: ReqStock): Observable<ResStock> {
+    return this.httpClient.post<ResStock>(`${this.apiURL}/api/stocks/getStock`, body);
+  }
+  public getUserStock(body: ReqUserStock): Observable<ResUserStock> {
+    return this.httpClient.post<ResUserStock>(`${this.apiURL}/api/stocks/getUserStock`, body);
+  }
+  public updateStock(body: ReqUpdateStock): Observable<ResUpdateStock> {
+    return this.httpClient.post<ResUpdateStock>(`${this.apiURL}/api/stocks/updateStocks`, body);
+  }
+  public DeleteStock(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.apiURL}/api/stocks/deleteStocks/${id}`);
+  }
+  public createStock(body: ReqCreateStock): Observable<ResCreateStock> {
+    return this.httpClient.post<ResCreateStock>(`${this.apiURL}/api/stocks/createStocks`, body);
+  }
+  public uploadImgStock(file: any, BId: any): Observable<ResUploadStock> {
+    const formData: FormData = new FormData();
+    formData.append('uploadMulti', file, file.name);
+    return this.httpClient.post<ResUploadStock>(`${this.apiURL}/api/stocks/uploadMulti/${BId}`, formData);
+  }
+
+
+  public getBasket(body: ReqBasket): Observable<ResBasket> {
+    return this.httpClient.post<ResBasket>(`${this.apiURL}/api/basket/createBasket`, body);
+  }
+  public getUserBasket(body: ReqUserBasket): Observable<ResUserBasket> {
+    return this.httpClient.post<ResUserBasket>(`${this.apiURL}/api/basket/getUserBasket`, body);
+  }
+  public CreateBasket(body: ReqCreateBasket): Observable<ResCreateBasket> {
+    return this.httpClient.post<ResCreateBasket>(`${this.apiURL}/api/basket/createBasket`, body);
+  }
+  public UpdateBasket(body: ReqUpdateBasket): Observable<ResUpdateBasket> {
+    return this.httpClient.post<ResUpdateBasket>(`${this.apiURL}/api/basket/updateBasket`, body);
+  }
+  public DeleteBasket(id: number): Observable<any> {
+    return this.httpClient.delete<any>(`${this.apiURL}/api/basket/deleteBasket/${id}`);
+  }
+
+
+  public getReport(body: ReqGetReport): Observable<ResGetReport> {
+    return this.httpClient.post<ResGetReport>(`${this.apiURL}/api/report/getReport`, body);
+  }
+  public CreateReport(body: ReqCreateReport): Observable<ResCreateReport> {
+    return this.httpClient.post<ResCreateReport>(`${this.apiURL}/api/report/createReport`, body);
+  }
 }

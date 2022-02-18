@@ -35,53 +35,161 @@
                                         </div>
                                     </div>
                                     <div class="col-5" style="margin-top: 0px;">
-                                        <button type="button" class="btn btn-primary btn-sm float-right"><i
-                                                class="fas fa-plus"></i> เพิ่มข้อมูล</button>
+                                        <button type="button" class="btn btn-primary btn-sm float-right"
+                                            (click)="openModelCreateShop()"><i class="fas fa-plus"></i>
+                                            เพิ่มข้อมูล</button>
                                     </div>
                                 </div>
 
                             </div>
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
-                            <table class="table table-hover text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 10px">#</th>
-                                        <th>ประเภท</th>
-                                        <th>ชื่อ</th>
-                                        <th>ราคา</th>
-                                        <th>จำนวน</th>
-                                        <th>รูป</th>
-                                        <th>รายละเอียด</th>
-                                        <th>แก้ไข</th>
-                                        <th>ลบ</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span class="tag tag-success"></span></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- /.card-body -->
-                        <div class="card-footer clearfix">
-            
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>*</th>
+                                            <th>ชื่อร้าน</th>
+                                            <th>ชื่อ-นามสกุล</th>
+                                            <th>gmail</th>
+                                            <th>เบอร์โทร</th>
+                                            <th style="width: 90px"></th>
+                                            <th style="width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="DataShop && DataShop.data && DataShop.data.length > 0">
+                                        <tr *ngFor="let showShop of DataShop.data ; index as i">
+                                            <td *ngIf="showShop.imgShop">
+                                                <div class="product-img"  *ngFor="let showImg of showShop.imgShop">
+                                                    <img [src]="'http://localhost:3200/img/resources/static/assets/upload/'+showImg.imgName"
+                                                        alt="Product Image" class="img-size-50">
+                                                </div>
+                                            </td>
+                                            <td *ngIf="!showShop.imgShop">
+                                                <div class="product-img">
+                                                    <img src="assets/dist/img/default-150x150.png" alt="Product Image"
+                                                        class="img-size-50">
+                                                </div>
+                                            </td>
+                                            <td>{{showShop.shopName}}</td>
+                                            <td>{{showShop.customer.firstName + ' ' + showShop.customer.lastName}}</td>
+                                            <td>{{showShop.customer.gmail}}</td>
+                                            <td>{{showShop.customer.phoneNumber}}</td>
+                                            <td><button type="button" class="btn btn-block bg-warning"
+                                                    (click)="ShowUpdateShop(showShop.id)">แก้ไขข้อมูล</button>
+                                            </td>
+                                            <td><button type="button" class="btn btn-block bg-danger"
+                                                    (click)="openModelSureDeleted(showShop.id)">ลบข้อมูล</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <!-- <tbody
+                                        *ngIf="!DataCustomer && !DataCustomer.data && DataCustomer.data.length === 0">
+                                        <tr>
+                                            <td colspan="20" style="text-align: center;">ไม่มีข้อมูล</td>
+                                        </tr>
+                                    </tbody> -->
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
                         </div>
                     </div>
-                    <!-- /.card -->
                 </div>
             </div>
         </div>
     </section>
+</div>
 
+
+
+<div class="modal fade bd-example-modal-lg" id="contentCreatShop">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลร้านค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ชื่อร้านค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="CreateShop.shopName" name="shopName">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>เจ้าของร้าน</label>
+                                <select class="custom-select" [(ngModel)]="CreateShop.customerId">
+                                    <option *ngFor="let showMember of DataCustomer.data ; index as i"
+                                        value="{{showMember.id}}">{{showMember.userName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{CreateShop|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="createDataShop()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateShop">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูลร้านค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <!-- <div class="preview">
+                        <label for="file_input">
+                            <img [src]="url || 'assets/img/avatar2.png'" height="200">
+                        </label>
+                        <input type="file" id="file_input" (change)="onFileSelected($event)">
+                    </div> -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="file_input">รูปหน้าร้าน</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" id="file_input" (change)="onFileSelected($event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อร้านค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateShop.shopName" name="shopName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateShop()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

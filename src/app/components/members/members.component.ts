@@ -26,7 +26,8 @@ export class MembersComponent implements OnInit {
     firstName: '',
     lastName: '',
     gmail: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    status: ''
   };
 
   ngUpdateCustomer = {
@@ -109,7 +110,8 @@ export class MembersComponent implements OnInit {
       firstName: '',
       lastName: '',
       gmail: '',
-      phoneNumber: ''
+      phoneNumber: '',
+      status: ''
     };
   }
 
@@ -132,7 +134,8 @@ export class MembersComponent implements OnInit {
       firstName: this.ngCustomer.firstName,
       lastName: this.ngCustomer.lastName,
       gmail: this.ngCustomer.gmail,
-      phoneNumber: this.ngCustomer.phoneNumber
+      phoneNumber: this.ngCustomer.phoneNumber,
+      status: Number(this.ngCustomer.status)
     };
 
     // tslint:disable-next-line:max-line-length

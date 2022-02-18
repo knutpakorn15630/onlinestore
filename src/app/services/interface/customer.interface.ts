@@ -28,6 +28,7 @@ export interface ReqCreateCustomer {
     lastName: string;
     gmail: string;
     phoneNumber: string;
+    status: number;
 }
 
 export interface ResCreateCustomer {
@@ -40,6 +41,48 @@ export interface ResCreateCustomer {
     phoneNumber: string;
     updatedAt: string;
     createdAt: string;
+}
+
+export interface ReqGetAddress {
+    id: number;
+}
+
+export interface ResGetAddress {
+    data: DataReqGetAddress[];
+}
+
+export interface DataReqGetAddress {
+    id: number;
+    addressName: string;
+    createdAt: string;
+    updatedAt: string;
+    customerId: number;
+}
+
+export interface ReqCreateAddress {
+    addressName: string;
+    customerId: number;
+}
+
+export interface ResCreateAddress {
+    id: number;
+    addressName: string;
+    customerId: number;
+    updatedAt: string;
+    createdAt: string;
+}
+
+export interface ReqUpdateAddress {
+    id: number;
+    addressName: string;
+}
+
+export interface ResUpdateAddress {
+    id: number;
+    addressName: string;
+    createdAt: string;
+    updatedAt: string;
+    customerId: number;
 }
 
 export interface ReqUpdateCustomer {
@@ -63,3 +106,36 @@ export interface ResUpdateCustomer {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface ReqLogin {
+    userName: string;
+    password: string;
+}
+
+export interface ResLogin {
+    id: number;
+    userName: string;
+    passWord: string;
+    firstName: string;
+    lastName: string;
+    gmail: string;
+    phoneNumber: string;
+    status: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface DataIsLogin {
+    id: number;
+    userName: string;
+    passWord: string;
+    firstName: string;
+    lastName: string;
+    gmail: string;
+    phoneNumber: string;
+    status: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+

@@ -1,0 +1,91 @@
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1>สินค้าในตระกล้า</h1>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive p-0">
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>ชื่อสินค้า</th>
+                                            <th>จำนวน</th>
+                                            <th>ราคารวม</th>
+                                            <th style="width: 90px"></th>
+                                            <th style="width: 90px"></th>
+                                            <th style="width: 90px"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody
+                                        *ngIf="DataUserBasket && DataUserBasket.data && DataUserBasket.data.length === 0">
+                                        <tr>
+                                            <td colspan="20" style="text-align: center;">ไม่มีข้อมูล</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody
+                                        *ngIf="DataUserBasket && DataUserBasket.data && DataUserBasket.data.length > 0">
+                                        <tr *ngFor="let showBasket of DataUserBasket.data ; index as i">
+                                            <td>{{showBasket.productName}}</td>
+                                            <td>{{showBasket.volume}}</td>
+                                            <td>{{showBasket.total}} </td>
+                                            <td><button type="button" class="btn btn-block bg-danger" (click)="openModelSureDeleted(showBasket.id)">ลบข้อมูล</button>
+                                            </td>
+                                            <td><button type="button"
+                                                    class="btn btn-block bg-warning" (click)="ShowUpdateBasket(showBasket.id)">แก้ไขจำนวน</button>
+                                            </td>
+                                            <td><button type="button" class="btn btn-block bg-primary">สั่งซื้อสินค้า</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateBasket">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title"> แก้ไขจำนวนสินค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>จำนวน</label>
+                                <span style="color: red;">*</span>
+                                <input type="number" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateBasket.volume" name="volume">
+                            </div>
+                        </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateBasket()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

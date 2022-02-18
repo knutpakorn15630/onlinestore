@@ -35,8 +35,9 @@
                                         </div>
                                     </div>
                                     <div class="col-5" style="margin-top: 0px;">
-                                        <button type="button" class="btn btn-primary btn-sm float-right" (click)="random()"><i
-                                                class="fas fa-plus"></i> เพิ่มข้อมูล</button>
+                                        <button type="button" class="btn btn-primary btn-sm float-right"
+                                            (click)="openModelCreateShop()"><i class="fas fa-plus"></i>
+                                            เพิ่มข้อมูล</button>
                                     </div>
                                 </div>
 
@@ -48,34 +49,46 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>ประเภท</th>
-                                        <th>ชื่อ</th>
+                                        <th>ชื่อร้าน</th>
+                                        <th>ประเภทสินค้า</th>
+                                        <th>ชื่อสินค้า</th>
                                         <th>ราคา</th>
                                         <th>จำนวน</th>
-                                        <th>รูป</th>
-                                        <th>รายละเอียด</th>
-                                        <th>แก้ไข</th>
-                                        <th>ลบ</th>
+                                        <th style="width: 90px"></th>
+                                        <th style="width: 90px"></th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td><span class="tag tag-success"></span></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                <tbody *ngIf="DataStock && DataStock.data && DataStock.data.length > 0">
+                                    <tr *ngFor="let showStock of DataStock.data ; index as i">
+                                        <td *ngIf="showStock.imgStock">
+                                            <div class="product-img"  *ngFor="let showImg of showStock.imgStock">
+                                                <img [src]="'http://localhost:3200/img/resources/static/assets/upload/'+showImg.imgName"
+                                                    alt="Product Image" class="img-size-50">
+                                            </div>
+                                        </td>
+                                        <td *ngIf="!showStock.imgStock">
+                                            <div class="product-img">
+                                                <img src="assets/dist/img/default-150x150.png" alt="Product Image"
+                                                    class="img-size-50">
+                                            </div>
+                                        </td>
+                                        <td>{{showStock.shop.shopName}}</td>
+                                        <td>{{showStock.typeStock.typeName}}</td>
+                                        <td>{{showStock.productName}}</td>
+                                        <td>{{showStock.price}}</td>
+                                        <td>{{showStock.volume}}</td>
+                                        <td><button type="button" class="btn btn-block bg-warning"
+                                                (click)="ShowUpdateStock(showStock.id)">แก้ไขข้อมูล</button>
+                                        </td>
+                                        <td><button type="button" class="btn btn-block bg-danger" (click)="openModelSureDeleted(showStock.id)">ลบข้อมูล</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <!-- /.card-body -->
                         <div class="card-footer clearfix">
-            
+
                         </div>
                     </div>
                     <!-- /.card -->
@@ -83,5 +96,154 @@
             </div>
         </div>
     </section>
+</div>
 
+<div class="modal fade bd-example-modal-lg" id="contentUpdateStock">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูลสินค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="file_input">รูปหน้าร้าน</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" id="file_input" (change)="onFileSelected($event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ชื่อสินค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateStock.productName" name="productName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ราคา</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateStock.price" name="price">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>จำนวน</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateStock.volume" name="volume">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ลายละเอียด</label>
+                                <span style="color: red;">*</span>
+                                <textarea type="text" class="form-control" placeholder=""
+                                    [(ngModel)]="ngUpdateStock.details" name="details"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateStock()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentCreatStock">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลสินค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalCreate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label for="file_input">รูปหน้าร้าน</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" id="file_input" (change)="onFileSelected($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ชื่อสินค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngStock.productName" name="productName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ราคา</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngStock.price" name="price">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>จำนวน</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngStock.volume" name="volume">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ลายละเอียด</label>
+                                <span style="color: red;">*</span>
+                                <textarea type="text" class="form-control" placeholder="" [(ngModel)]="ngStock.details"
+                                    name="details"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>เจ้าของร้าน</label>
+                                <select class="custom-select" [(ngModel)]="ngStock.shopId">
+                                    <option *ngFor="let showShop of DataShop.data ; index as i" value="{{showShop.id}}">
+                                        {{showShop.shopName}}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>เจ้าของร้าน</label>
+                                <select class="custom-select" [(ngModel)]="ngStock.typeStockId">
+                                    <option *ngFor="let showTypeStock of DataTypeStoke.data ; index as i"
+                                        value="{{showTypeStock.id}}">{{showTypeStock.typeName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="createStock()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -17,6 +17,8 @@ import { ShopUserComponent } from './components/shop-user/shop-user.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { BartPipe } from './services/bart.pipe';
 import { AdminshopComponent } from './components/adminshop/adminshop.component';
+import { BasketComponent } from './components/basket/basket.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { AdminshopComponent } from './components/adminshop/adminshop.component';
     ShopUserComponent,
     ContactComponent,
     BartPipe,
-    AdminshopComponent
+    AdminshopComponent,
+    BasketComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,514 @@
+<section class="content">
+    <div class="container-fluid">
+        <div class="row mt-3">
+            <div class="col-md-3">
+                <div class="card card-primary card-outline">
+                    <div class="card-body box-profile">
+                        <h3 class="profile-username text-center">{{ DataIsLogin.firstName + ' ' + DataIsLogin.lastName}}
+                        </h3>
+                        <ul class="list-group list-group-unbordered mb-3">
+                            <li class="list-group-item">
+                                <b>เบอร์โทร</b> <a class="float-right">{{ DataIsLogin.phoneNumber}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>gmail</b> <a class="float-right">{{ DataIsLogin.gmail}}</a>
+                            </li>
+                        </ul>
+                        <!-- <a class="btn btn-primary btn-block"
+                            (click)="openModelCreatProfile()"><b>แก้ไขข้อมูลส่วนตัว</b></a> -->
+                    </div>
+                </div>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">ที่อยู่</h3>
+                    </div>
+                    <div class="card-body" *ngIf="DataAddress && DataAddress.data && DataAddress.data.length === 0">
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                        <div class="col-12">
+                            <div class="row">
+                                <p class="text-muted nav-link" type="button" name="location">ไม่มีข้อมูล
+                                </p>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" *ngIf="DataAddress && DataAddress.data && DataAddress.data.length > 0">
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                        <div *ngFor="let showAddress of DataAddress.data ; index as i">
+                            <div>
+                                <p class="text-muted nav-link" type="button" name="location">
+                                    {{showAddress.addressName}} </p>
+                                <button type="button" class="btn btn-block bg-danger"
+                                    (click)="openModelSureDeletedAddress(showAddress.id)">ลบ</button>
+                                <button type="button" class="btn btn-block bg-warning"
+                                    (click)="ShowUpdateAddress(showAddress.id)">แก้ไข</button>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer clearfix">
+                        <button type="button" class="btn btn-primary float-right" (click)="openModelCreatAddress()"><i
+                                class="fas fa-plus"></i>
+                            เพิ่มที่อยู่</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <div class="card card-primary card-outline">
+                    <div class="card-header box-profile">
+                        ข้อมูลร้านค้า
+                        <button type="button" class="btn btn-primary float-right" (click)="openModelCreateShop()"><i
+                                class="fas fa-plus"></i>
+                            เพิ่มร้านค้า</button>
+                    </div>
+
+                    <div class="card-body box-profile">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ชื่อร้าน</th>
+                                    <th style="width: 90px"></th>
+                                    <th style="width: 90px"></th>
+                                    <th style="width: 90px"></th>
+                                    <th style="width: 90px"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="DataUserShop && DataUserShop.data && DataUserShop.data.length > 0">
+                                <tr *ngFor="let showShop of DataUserShop.data ; index as i">
+                                    <td *ngIf="showShop.imgShop">
+                                        <div class="product-img" *ngFor="let showImg of showShop.imgShop">
+                                            <img [src]="'http://localhost:3200/img/resources/static/assets/upload/'+showImg.imgName"
+                                                alt="Product Image" class="img-size-50">
+                                        </div>
+                                    </td>
+                                    <td *ngIf="!showShop.imgShop">
+                                        <div class="product-img">
+                                            <img src="assets/dist/img/default-150x150.png" alt="Product Image"
+                                                class="img-size-50">
+                                        </div>
+                                    </td>
+                                    <td>{{showShop.shopName}}</td>
+                                    <td><button type="button" class="btn btn-block bg-info"
+                                            (click)="ShowUserStock(showShop.id)">ดูสินค้าภายในร้าน</button>
+                                    </td>
+                                    <td><button type="button" class="btn btn-block bg-primary"
+                                            (click)="openModelCreateStock(showShop.id)">เพิ่มสินค้า</button>
+                                    </td>
+                                    <td><button type="button" class="btn btn-block bg-warning"
+                                            (click)="ShowUpdateShop(showShop.id)">แก้ไขข้อมูล</button>
+                                    </td>
+                                    <td><button type="button" class="btn btn-block bg-danger"
+                                            (click)="openModelSureDeleted(showShop.id)">ลบข้อมูล</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card card-primary card-outline">
+                    <div class="card-header box-profile">
+                        ข้อมูลสินค้า
+                    </div>
+                    <div class="card-body box-profile">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ชื่อร้าน</th>
+                                    <th>ประเภทสินค้า</th>
+                                    <th>ชื่อสินค้า</th>
+                                    <th>ราคา</th>
+                                    <th>จำนวน</th>
+                                    <th style="width: 90px"></th>
+                                    <th style="width: 90px"></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="DataResStock && DataResStock.data && DataResStock.data.length > 0">
+                                <tr *ngFor="let showStock of DataResStock.data ; index as i">
+                                    <td *ngIf="showStock.imgStock">
+                                        <div class="product-img" *ngFor="let showImg of showStock.imgStock">
+                                            <img [src]="'http://localhost:3200/img/resources/static/assets/upload/'+showImg.imgName"
+                                                alt="Product Image" class="img-size-50">
+                                        </div>
+                                    </td>
+                                    <td *ngIf="!showStock.imgStock">
+                                        <div class="product-img">
+                                            <img src="assets/dist/img/default-150x150.png" alt="Product Image"
+                                                class="img-size-50">
+                                        </div>
+                                    </td>
+                                    <td>{{showStock.shop.shopName}}</td>
+                                    <td>{{showStock.typeStock.typeName}}</td>
+                                    <td>{{showStock.productName}}</td>
+                                    <td>{{showStock.price}}</td>
+                                    <td>{{showStock.volume}}</td>
+                                    <td><button type="button" class="btn btn-block bg-warning"
+                                            (click)="ShowUpdateStock(showStock.id)">แก้ไขข้อมูล</button>
+                                    </td>
+                                    <td><button type="button" class="btn btn-block bg-danger"
+                                            (click)="openModelSureDeletedStock(showStock.id, showStock.shop.id)">ลบข้อมูล</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade bd-example-modal-lg" id="contentCreatShop">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มร้านค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalCreateShop()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ชื่อร้านค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="CreateShop.shopName" name="shopName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{CreateShop|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="createDataShop()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateShop">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูลร้านค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdateShop()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <!-- <div class="preview">
+                        <label for="file_input">
+                            <img [src]="url || 'assets/img/avatar2.png'" height="200">
+                        </label>
+                        <input type="file" id="file_input" (change)="onFileSelected($event)">
+                    </div> -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="file_input">รูปหน้าร้าน</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" id="file_input" (change)="onFileSelected($event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อร้านค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateShop.shopName" name="shopName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateShop()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentCreateAddress">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มที่อยู่</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ที่อยู่</label>
+                                <span style="color: red;">*</span>
+                                <textarea class="form-control" rows="3" maxlength="200" placeholder="Enter ..."
+                                    name="nameAddress" [(ngModel)]="ngCreateAddress.name"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- {{ngDelivery|json}} -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" (click)="CreateAddress()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateAddress">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขที่อยู่</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdateAddress()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ที่อยู่</label>
+                                <span style="color: red;">*</span>
+                                <textarea class="form-control" rows="3" maxlength="200" placeholder="Enter ..."
+                                    name="nameAddressUpdate" [(ngModel)]="ngUpdateAddress.addressName"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- {{ngDelivery|json}} -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" (click)="updateAddress()">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateProfile">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title"> แก้ไขข้อมูลส่วนตัว</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdateProfile()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateProfile.userName" name="username">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateProfile.passWord" name="password">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateProfile.firstName" name="ชื่อ">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>นามสกุล</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateProfile.lastName" name="นามสกุล">
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <div class="form-group">
+                                <label>Gmail</label>
+                                <span style="color: red;">*</span>
+                                <input type="email" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateProfile.gmail" name="Gmail">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>เบอร์โทร</label>
+                                <span style="color: red;">*</span>
+                                <input type="tel" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateProfile.phoneNumber" maxlength="10" name="เบอร์โทร">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateUserProfile()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentCreatStock">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลสินค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalCreate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="file_input">รูปสินค้า</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" id="file_input" (change)="onFileSelectedStock($event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ชื่อสินค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngStock.productName" name="productName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ราคา</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngStock.price" name="price">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>จำนวน</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngStock.volume" name="volume">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ลายละเอียด</label>
+                                <span style="color: red;">*</span>
+                                <textarea type="text" class="form-control" placeholder="" [(ngModel)]="ngStock.details"
+                                    name="details"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ประเภทสินค้า</label>
+                                <select class="custom-select" [(ngModel)]="ngStock.typeStockId">
+                                    <option *ngFor="let showTypeStock of DataTypeStoke.data ; index as i"
+                                        value="{{showTypeStock.id}}">{{showTypeStock.typeName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="createStock()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateStock">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูลสินค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdateStock()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="file_input">รูปหน้าร้าน</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" id="file_input" (change)="onFileSelected($event)">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ชื่อสินค้า</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateStock.productName" name="productName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ราคา</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateStock.price" name="price">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>จำนวน</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngUpdateStock.volume" name="volume">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>ลายละเอียด</label>
+                                <span style="color: red;">*</span>
+                                <textarea type="text" class="form-control" placeholder=""
+                                    [(ngModel)]="ngUpdateStock.details" name="details"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateStock()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
