@@ -41,12 +41,14 @@
                                             <td>{{showBasket.productName}}</td>
                                             <td>{{showBasket.volume}}</td>
                                             <td>{{showBasket.total}} </td>
-                                            <td><button type="button" class="btn btn-block bg-danger" (click)="openModelSureDeleted(showBasket.id)">ลบข้อมูล</button>
+                                            <td><button type="button" class="btn btn-block bg-danger"
+                                                    (click)="openModelSureDeleted(showBasket.id)">ลบข้อมูล</button>
                                             </td>
-                                            <td><button type="button"
-                                                    class="btn btn-block bg-warning" (click)="ShowUpdateBasket(showBasket.id)">แก้ไขจำนวน</button>
+                                            <td><button type="button" class="btn btn-block bg-warning"
+                                                    (click)="ShowUpdateBasket(showBasket.id)">แก้ไขจำนวน</button>
                                             </td>
-                                            <td><button type="button" class="btn btn-block bg-primary">สั่งซื้อสินค้า</button>
+                                            <td><button type="button" class="btn btn-block bg-primary"
+                                                    (click)="ShowReportShop(showBasket.stockId, showBasket.id); ShowModalCreate(showBasket.id);">สั่งซื้อสินค้า</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -80,10 +82,100 @@
                                     [(ngModel)]="ngUpdateBasket.volume" name="volume">
                             </div>
                         </div>
+                    </div>
+                    <!-- {{ngDelivery|json}} -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" (click)="updateBasket()">Save</button>
+                    </div>
                 </div>
-                <!-- {{ngDelivery|json}} -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="updateBasket()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentCreateReport">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">คำสั่งซื้อสินค้า</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalCreate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="invoice p-3 mb-3">
+
+                            <!-- <div class="row">
+                                <div class="col-12">
+                                    <h4>
+                                        <i class="fas fa-globe"></i> AdminLTE, Inc.
+                                        <small class="float-right">Date: 2/10/2014</small>
+                                    </h4>
+                                </div>
+
+                            </div> -->
+
+                            <div class="row invoice-info">
+                                <div class="col-sm-4 invoice-col"
+                                    *ngIf="DataResReportStock && DataResReportStock.data && DataResReportStock.data.length > 0">
+                                    จากร้าน
+                                    <address *ngFor="let showShopData of DataResReportStock.data ; index as i">
+                                        <strong>{{showShopData.shop.shopName}}</strong>
+                                    </address>
+                                </div>
+
+                                <div class="col-sm-4 invoice-col">  
+                                    ถึง
+                                    <address >
+                                        <strong>{{DataIsLogin.firstName + ' ' + DataIsLogin.lastName}}</strong><br>
+                                        <div class="form-group">
+                                            <label for="address">ที่อยู่</label>
+                                            <select class="custom-select" [(ngModel)]="ngCreateReport.location" >
+                                                <option  *ngFor="let showAddress of DataAddress.data ; index as i"
+                                                    value="{{showAddress.addressName}}">{{showAddress.addressName}}</option>
+                                            </select>
+                                        </div>
+                                    </address>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-12 table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>ชื่อสินค้า</th>
+                                                <th>ราคา</th>
+                                                <th>จำนวน</th>
+                                                <th>ราคารวม</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>{{ngShowBasket.productName}}</td>
+                                                <td>{{ngShowBasket.price}}</td>
+                                                <td>{{ngShowBasket.volume}}</td>
+                                                <td>{{ngShowBasket.total}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {{ngCreateReport|json}}
+                            </div>
+                            <div class="row no-print">
+                                <div class="col-12">
+                                    <button type="button" class="btn btn-success float-right" (click)="CreateReport()"><i
+                                            class="far fa-credit-card"></i> สั่งซื้อ
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>

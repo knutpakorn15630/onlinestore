@@ -130,3 +130,33 @@ export interface Shop {
     id: number;
     shopName: string;
 }
+
+
+export interface ReqReportStock {
+    id: number;
+}
+
+export interface ResReportStock {
+    data: DataResReportStock[];
+}
+
+export interface DataResReportStock {
+    id: number;
+    productName: string;
+    volume: string;
+    price: string;
+    details: string;
+    createdAt: string;
+    updatedAt: string;
+    shopId: number;
+    typeStockId: number;
+    shop: ReportShop;
+}
+
+export interface ReportShop {
+    id: number;
+    shopName: string;
+    createdAt: string;
+    updatedAt: string;
+    customerId: number;
+}

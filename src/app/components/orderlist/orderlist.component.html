@@ -7,22 +7,24 @@
                 </div>
                 <div class="col-5">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn bg-primary">
-                            <input type="radio" name="options" id="option_a1" autocomplete="off" checked=""> รายการใหม่
+                        <label class="btn bg-primary active">
+                            <input type="radio" name="options" id="option_a1" autocomplete="off" checked=""
+                                (click)="ShowReport()"> รายการใหม่
                         </label>
-                        <label class="btn bg-success active">
-                            <input type="radio" name="options" id="option_a2" autocomplete="off"> ชำระเงินแล้ว
+                        <label class="btn bg-success">
+                            <input type="radio" name="options" id="option_a2" autocomplete="off"
+                                (click)="ShowReport1()"> ชำระเงินแล้ว
                         </label>
                         <label class="btn bg-warning">
-                            <input type="radio" name="options" id="option_a3" autocomplete="off"> ส่งของแล้ว
+                            <input type="radio" name="options" id="option_a3" autocomplete="off"
+                                (click)="ShowReport2()"> ส่งของแล้ว
                         </label>
                     </div>
                 </div>
                 <div class="col-5">
                     <form action="simple-results.html">
                         <div class="input-group">
-                            <input type="search" class="form-control form-control"
-                                placeholder="ค้นหา">
+                            <input type="search" class="form-control form-control" placeholder="ค้นหา">
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-default">
                                     <i class="fa fa-search"></i>
@@ -44,7 +46,6 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">#</th>
                                         <th>รหัสสั่งซื้อ</th>
                                         <th>ชื่อลูกค้า</th>
                                         <th>จำนวน</th>
@@ -55,21 +56,30 @@
                                         <!-- <th style="width: 150px"></th> -->
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </tbody>
-                                <tbody>
+                                <tbody *ngIf="!DataReport && !DataReport.data && DataReport.data.length > 0">
                                     <tr>
                                         <td colspan="8" style="text-align: center;">ไม่มีข้อมูล</td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="DataReport && DataReport.data && DataReport.data.length > 0">
+                                    <tr *ngFor="let showReport of DataReport.data ; index as i">
+                                        <td>{{showReport.orderCode}}</td>
+                                        <td>{{showReport.customer.firstName + ' ' + showReport.customer.lastName}}</td>
+                                        <td>{{showReport.volume}}</td>
+                                        <td>{{showReport.price}}</td>
+                                        <td *ngIf="showReport.orderStatus == 0">สั่งซื้อใหม่</td>
+                                        <td *ngIf="showReport.orderStatus == 1">จ่ายเงินแล้ว</td>
+                                        <td *ngIf="showReport.orderStatus == 2">ส่งของเรียบร้อยแล้ว</td>
+                                        <!-- <td *ngIf="showReport.orderStatus === 1" >ส่งของแล้ว</td> -->
+                                        <td>{{showReport.createdAt | date: 'medium'}}</td>
+                                        <td *ngIf="showReport.orderStatus == 0"><button type="button"
+                                                class="btn btn-block bg-secondary"
+                                                (click)="UpdateReport(showReport.id, '1')">ชำระเงินแล้ว</button>
+                                        </td>
+                                        <td *ngIf="showReport.orderStatus == 1"><button type="button"
+                                                class="btn btn-block bg-secondary"
+                                                (click)="openModelUpdateReport(showReport.id, '2')">ส่งของแล้ว</button>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -81,4 +91,35 @@
         </div>
     </section>
 
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentupdateReport">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มเลขพัสดุ</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModal()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>หมายเลขพัสดุ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="updateReport.parcelNumber" name="shopName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{CreateShop|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="UpdateReport2()">ส่งของแล้ว</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

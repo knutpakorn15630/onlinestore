@@ -3,7 +3,7 @@ export interface ReqCreateReport {
     volume: number;
     price: string;
     orderStatus: number;
-    parcelNumber: string;
+    location: string;
     basketId: string;
     customerId: string;
     stocksId: string;
@@ -15,7 +15,7 @@ export interface ResCreateReport {
     volume: number;
     price: string;
     orderStatus: number;
-    parcelNumber: string;
+    location: string;
     basketId: string;
     customerId: string;
     stocksId: string;
@@ -75,4 +75,44 @@ export interface Stocks {
     updatedAt: string;
     shopId: number;
     typeStockId: number;
+}
+
+
+export interface ReqUpdateReport {
+    id: number;
+    orderStatus: string;
+}
+
+export interface ResUpdateReport {
+    id: number;
+    orderCode: string;
+    volume: string;
+    price: string;
+    orderStatus: string;
+    parcelNumber: any;
+    createdAt: string;
+    updatedAt: string;
+    basketId: number;
+    customerId: number;
+    stocksId: number;
+}
+
+export interface ReqUpdateReport2 {
+    id: number;
+    orderStatus: string;
+    parcelNumber: string;
+}
+
+export interface ResUpdateReport2 {
+    id: number;
+    orderCode: string;
+    volume: string;
+    price: string;
+    orderStatus: string;
+    parcelNumber: any;
+    createdAt: string;
+    updatedAt: string;
+    basketId: number;
+    customerId: number;
+    stocksId: number;
 }

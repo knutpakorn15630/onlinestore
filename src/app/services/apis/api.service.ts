@@ -8,9 +8,10 @@ import { ReqBanks, ReqCreateBanks, ReqUpdateBanks, ResBanks, ResCreateBanks, Res
 import { ReqCreateTypeStoke, ReqGetTypeStoke, ReqUpdateTypeStoke, ResCreateTypeStoke, ResGetTypeStoke, ResUpdateTypeStoke } from '../interface/typestoke.interface';
 import { ReqCreateShop, ReqGetUserShop, ReqShop, ReqUpdateShop, ResCreateShop, ResGetUserShop, ResShop, ResUpdateShop, ResUploadShop } from '../interface/adminShop.interface';
 // tslint:disable-next-line:max-line-length
-import { ReqCreateStock, ReqStock, ReqUpdateStock, ReqUserStock, ResCreateStock, ResStock, ResUpdateStock, ResUploadStock, ResUserStock } from '../interface/stock.interface';
+import { ReqCreateStock, ReqReportStock, ReqStock, ReqUpdateStock, ReqUserStock, ResCreateStock, ResReportStock, ResStock, ResUpdateStock, ResUploadStock, ResUserStock } from '../interface/stock.interface';
 import { ReqBasket, ReqCreateBasket, ReqUpdateBasket, ReqUserBasket, ResBasket, ResCreateBasket, ResUpdateBasket, ResUserBasket } from '../interface/basket.interface';
-import { ReqCreateReport, ReqGetReport, ResCreateReport, ResGetReport } from '../interface/report.interface';
+// tslint:disable-next-line:max-line-length
+import { ReqCreateReport, ReqGetReport, ReqUpdateReport, ReqUpdateReport2, ResCreateReport, ResGetReport, ResUpdateReport, ResUpdateReport2 } from '../interface/report.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +110,9 @@ export class ApiService {
   public getUserStock(body: ReqUserStock): Observable<ResUserStock> {
     return this.httpClient.post<ResUserStock>(`${this.apiURL}/api/stocks/getUserStock`, body);
   }
+  public getReportStock(body: ReqReportStock): Observable<ResReportStock> {
+    return this.httpClient.post<ResReportStock>(`${this.apiURL}/api/stocks/getReportStock`, body);
+  }
   public updateStock(body: ReqUpdateStock): Observable<ResUpdateStock> {
     return this.httpClient.post<ResUpdateStock>(`${this.apiURL}/api/stocks/updateStocks`, body);
   }
@@ -144,6 +148,18 @@ export class ApiService {
 
   public getReport(body: ReqGetReport): Observable<ResGetReport> {
     return this.httpClient.post<ResGetReport>(`${this.apiURL}/api/report/getReport`, body);
+  }
+  public getReport1(body: ReqGetReport): Observable<ResGetReport> {
+    return this.httpClient.post<ResGetReport>(`${this.apiURL}/api/report/getReport1`, body);
+  }
+  public getReport2(body: ReqGetReport): Observable<ResGetReport> {
+    return this.httpClient.post<ResGetReport>(`${this.apiURL}/api/report/getReport2`, body);
+  }
+  public getUpdateReport(body: ReqUpdateReport): Observable<ResUpdateReport> {
+    return this.httpClient.post<ResUpdateReport>(`${this.apiURL}/api/report/updateReport`, body);
+  }
+  public getUpdateReport2(body: ReqUpdateReport2): Observable<ResUpdateReport2> {
+    return this.httpClient.post<ResUpdateReport2>(`${this.apiURL}/api/report/updateReport2`, body);
   }
   public CreateReport(body: ReqCreateReport): Observable<ResCreateReport> {
     return this.httpClient.post<ResCreateReport>(`${this.apiURL}/api/report/createReport`, body);
