@@ -1,0 +1,62 @@
+<div class="content-wrapper m-0 bg-light" style="min-height: 1854.8px;">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1>สินค้าในตระกล้า</h1>
+                </div>
+                <div class="col-sm-2">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body table-responsive p-0">
+                            <!-- /.card-header -->
+                            <div class="card-body p-0">
+                                <table class="table table-hover text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th>รหัสสั่งซื้อ</th>
+                                            <th>ชื่อลูกค้า</th>
+                                            <th>จำนวน</th>
+                                            <th>ราคารวม</th>
+                                            <th>สถานะ</th>
+                                            <th>เพิ่มเลขพัสดุ</th>
+                                            <th>วันที่ทำรายการ</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody
+                                        *ngIf="DataUseReport && DataUseReport.data && DataUseReport.data.length === 0">
+                                        <tr>
+                                            <td colspan="20" style="text-align: center;">ไม่มีข้อมูล</td>
+                                        </tr>
+                                    </tbody>
+                                    <tbody *ngIf="DataUseReport && DataUseReport.data && DataUseReport.data.length > 0">
+                                        <tr *ngFor="let showDataReport of DataUseReport.data ; index as i">
+                                            <td>{{showDataReport.orderCode}}</td>
+                                            <td>{{showDataReport.customer.firstName + ' ' +
+                                                showDataReport.customer.lastName}}</td>
+                                            <td>{{showDataReport.volume}}</td>
+                                            <td>{{showDataReport.price}}</td>
+                                            <td *ngIf="showDataReport.orderStatus == 0">สั่งซื้อใหม่</td>
+                                            <td *ngIf="showDataReport.orderStatus == 1">จ่ายเงินแล้ว</td>
+                                            <td *ngIf="showDataReport.orderStatus == 2">ส่งของเรียบร้อยแล้ว</td>
+                                            <td>{{showDataReport.parcelNumber}}</td>
+                                            <td>{{showDataReport.createdAt | date: 'medium'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

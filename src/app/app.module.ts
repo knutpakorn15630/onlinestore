@@ -19,6 +19,8 @@ import { BartPipe } from './services/bart.pipe';
 import { AdminshopComponent } from './components/adminshop/adminshop.component';
 import { BasketComponent } from './components/basket/basket.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ShowreportshopComponent } from './components/showreportshop/showreportshop.component';
+import { MoneyComponent } from './components/money/money.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { ProfileComponent } from './components/profile/profile.component';
     BartPipe,
     AdminshopComponent,
     BasketComponent,
-    ProfileComponent
+    ProfileComponent,
+    ShowreportshopComponent,
+    MoneyComponent
   ],
   imports: [
     BrowserModule,

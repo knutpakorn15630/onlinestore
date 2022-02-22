@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/apis/api.service';
 import { ReqBanks, ReqCreateBanks, ReqUpdateBanks, ResBanks, ResBanksData, ResCreateBanks } from 'src/app/services/interface/banks.interface';
+import { DataIsLogin } from 'src/app/services/interface/customer.interface';
+import { LoginService } from 'src/app/services/login.service';
 import Swal from 'sweetalert2';
 declare var $: any;
 
@@ -14,6 +16,8 @@ export class BanksComponent implements OnInit {
   DataBanks: ResBanks = null;
 
   resCreateBanks: ResCreateBanks = null;
+
+  DataIsLogin: DataIsLogin = null;
 
   ngData = {
     perPages: 10,
@@ -51,7 +55,9 @@ export class BanksComponent implements OnInit {
     }
   });
 
-  constructor(private callApi: ApiService) { }
+  constructor(private callApi: ApiService, private IsLogin: LoginService) {
+    this.DataIsLogin = this.IsLogin.getLogin();
+  }
 
   ngOnInit(): void {
     this.ShowBanks();
@@ -76,7 +82,8 @@ export class BanksComponent implements OnInit {
       lastName: this.ngBanks.lastName,
       typeBk: this.ngBanks.typeBk,
       accountNumber: this.ngBanks.accountNumber,
-      branch: this.ngBanks.branch
+      branch: this.ngBanks.branch,
+      id: this.DataIsLogin.id.toString()
     };
 
     // tslint:disable-next-line:max-line-length

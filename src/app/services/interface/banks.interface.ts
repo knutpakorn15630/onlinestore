@@ -33,6 +33,7 @@ export interface ReqCreateBanks {
     typeBk: string;
     accountNumber: string;
     branch: string;
+    id: string;
 }
 
 export interface ResCreateBanks {
@@ -68,4 +69,26 @@ export interface ResUpdateBanks {
     createdAt: string;
     updatedAt: string;
     customerId: any;
+}
+
+
+export interface ReqGetUserBanks {
+    id: number;
+}
+
+export interface ResGetUserBanks {
+    data: DataResGetUserBanks[];
+}
+
+export interface DataResGetUserBanks {
+    id: number;
+    bankName: string;
+    firstName: string;
+    lastName: string;
+    typeBk: string;
+    accountNumber: string;
+    branch: string;
+    createdAt: string;
+    updatedAt: string;
+    customerId: number;
 }

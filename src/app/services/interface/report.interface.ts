@@ -116,3 +116,106 @@ export interface ResUpdateReport2 {
     customerId: number;
     stocksId: number;
 }
+
+export interface ReqUserReport {
+    id: number;
+    orderStatus: number;
+}
+
+export interface ResUserReport {
+    data: DataResUserReport[];
+}
+
+export interface DataResUserReport {
+    id: number;
+    orderCode: string;
+    volume: string;
+    price: string;
+    orderStatus: string;
+    location: string;
+    parcelNumber: any;
+    createdAt: string;
+    updatedAt: string;
+    basketId: number;
+    customerId: number;
+    stocksId: number;
+    customer: Customer;
+    stocks: Stocks;
+}
+
+export interface Customer {
+    id: number;
+    userName: string;
+    passWord: string;
+    firstName: string;
+    lastName: string;
+    gmail: string;
+    phoneNumber: string;
+    status: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface Stocks {
+    id: number;
+    productName: string;
+    volume: string;
+    price: string;
+    details: string;
+    createdAt: string;
+    updatedAt: string;
+    shopId: number;
+    typeStockId: number;
+}
+
+
+export interface ReqUserDataReport {
+    id: number;
+}
+
+export interface ResUserDataReport {
+    data: DataResUserDataReport[];
+}
+
+export interface DataResUserDataReport {
+    id: number;
+    orderCode: string;
+    volume: string;
+    price: string;
+    orderStatus: string;
+    location: string;
+    parcelNumber: string;
+    createdAt: string;
+    updatedAt: string;
+    basketId: number;
+    customerId: number;
+    stocksId: number;
+    customer: Customer;
+    stocks: Stocks;
+}
+
+export interface Customer {
+    id: number;
+    userName: string;
+    passWord: string;
+    firstName: string;
+    lastName: string;
+    gmail: string;
+    phoneNumber: string;
+    status: number;
+    createdAt: string;
+    updatedAt: string;
+}
+
+export interface Stocks {
+    id: number;
+    productName: string;
+    volume: string;
+    price: string;
+    details: string;
+    createdAt: string;
+    updatedAt: string;
+    shopId: number;
+    typeStockId: number;
+}
+

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/apis/api.service';
+import { ReqCreateMoney, ResCreateMoney } from 'src/app/services/interface/money.interface';
 import { ReqGetReport, ReqUpdateReport, ReqUpdateReport2, ResGetReport } from 'src/app/services/interface/report.interface';
 import Swal from 'sweetalert2';
 declare var $: any;
@@ -26,6 +27,16 @@ export class OrderlistComponent implements OnInit {
     orderStatus: '',
     parcelNumber: ''
   };
+
+  ngCreateMoney = {
+    totalMoney: '',
+    withdrawMoney: '',
+    reportId: '',
+    shopId: '',
+    customerId: ''
+  };
+
+  DataMoney: ResCreateMoney = null;
 
   DataReport: ResGetReport = null;
 
@@ -83,7 +94,7 @@ export class OrderlistComponent implements OnInit {
     );
   }
 
-  UpdateReport(id: any , orderStatus: string) {
+  UpdateReport(id: any, orderStatus: string) {
     const DataUpdateReport = this.DataReport.data.find((a) => a.id === id);
     if (!DataUpdateReport) {
       console.log('1');
@@ -93,6 +104,14 @@ export class OrderlistComponent implements OnInit {
       id: DataUpdateReport.id.toString(),
       orderStatus: orderStatus.toString(),
     };
+
+    this.ngCreateMoney = {
+      totalMoney: DataUpdateReport.price,
+      withdrawMoney: DataUpdateReport.price,
+      reportId: DataUpdateReport.id.toString(),
+      shopId: DataUpdateReport.stocks.shopId.toString(),
+      customerId: DataUpdateReport.customerId.toString()
+    };
     const body: ReqUpdateReport = {
       id: Number(this.ngUpdate.id),
       orderStatus: this.ngUpdate.orderStatus
@@ -100,6 +119,35 @@ export class OrderlistComponent implements OnInit {
     this.callApi.getUpdateReport(body).subscribe(
       (res) => {
         this.ShowReport();
+        this.createMoney();
+      }
+    );
+  }
+
+  createMoney() {
+    const body: ReqCreateMoney = {
+      totalMoney: Number(this.ngCreateMoney.totalMoney),
+      StatusMoney: 0,
+      withdrawMoney: Number(this.ngCreateMoney.withdrawMoney),
+      reportId: Number(this.ngCreateMoney.reportId),
+      shopId: Number(this.ngCreateMoney.shopId),
+      customerId: Number(this.ngCreateMoney.customerId),
+    };
+    // tslint:disable-next-line:max-line-length
+    if (!this.ngCreateMoney.totalMoney || !this.ngCreateMoney.withdrawMoney || !this.ngCreateMoney.reportId || !this.ngCreateMoney.shopId) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณากรอกข้อมูลให้ครบ!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
+    this.callApi.createMoney(body).subscribe(
+      (res) => {
+        this.DataMoney = res;
+      },
+      (err) => {
       }
     );
   }
@@ -147,7 +195,7 @@ export class OrderlistComponent implements OnInit {
     this.EmptyData();
   }
 
-  EmptyData(){
+  EmptyData() {
     this.updateReport = {
       id: '',
       orderStatus: '',

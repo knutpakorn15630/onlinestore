@@ -4,14 +4,15 @@ import { HttpClient } from '@angular/common/http';
 import { ReqCreateAddress, ReqCreateCustomer, ReqCustomer, ReqGetAddress, ReqLogin, ReqUpdateAddress, ReqUpdateCustomer,
 ResCreateAddress, ResCreateCustomer, ResCustomer, ResGetAddress, ResLogin, ResUpdateAddress, ResUpdateCustomer } from '../interface/customer.interface';
 import { Observable } from 'rxjs';
-import { ReqBanks, ReqCreateBanks, ReqUpdateBanks, ResBanks, ResCreateBanks, ResUpdateBanks } from '../interface/banks.interface';
+import { ReqBanks, ReqCreateBanks, ReqGetUserBanks, ReqUpdateBanks, ResBanks, ResCreateBanks, ResGetUserBanks, ResUpdateBanks } from '../interface/banks.interface';
 import { ReqCreateTypeStoke, ReqGetTypeStoke, ReqUpdateTypeStoke, ResCreateTypeStoke, ResGetTypeStoke, ResUpdateTypeStoke } from '../interface/typestoke.interface';
 import { ReqCreateShop, ReqGetUserShop, ReqShop, ReqUpdateShop, ResCreateShop, ResGetUserShop, ResShop, ResUpdateShop, ResUploadShop } from '../interface/adminShop.interface';
 // tslint:disable-next-line:max-line-length
 import { ReqCreateStock, ReqReportStock, ReqStock, ReqUpdateStock, ReqUserStock, ResCreateStock, ResReportStock, ResStock, ResUpdateStock, ResUploadStock, ResUserStock } from '../interface/stock.interface';
 import { ReqBasket, ReqCreateBasket, ReqUpdateBasket, ReqUserBasket, ResBasket, ResCreateBasket, ResUpdateBasket, ResUserBasket } from '../interface/basket.interface';
 // tslint:disable-next-line:max-line-length
-import { ReqCreateReport, ReqGetReport, ReqUpdateReport, ReqUpdateReport2, ResCreateReport, ResGetReport, ResUpdateReport, ResUpdateReport2 } from '../interface/report.interface';
+import { ReqCreateReport, ReqGetReport, ReqUpdateReport, ReqUpdateReport2, ReqUserDataReport, ReqUserReport, ResCreateReport, ResGetReport, ResUpdateReport, ResUpdateReport2, ResUserDataReport, ResUserReport } from '../interface/report.interface';
+import { ReqCreateMoney, ReqGetMoney, ReqUpdateMoney, ResCreateMoney, ResGetMoney, ResUpdateMoney } from '../interface/money.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,9 @@ export class ApiService {
 
   public getBanks(body: ReqBanks): Observable<ResBanks> {
     return this.httpClient.post<ResBanks>(`${this.apiURL}/api/banks/getBanks`, body);
+  }
+  public getUserBanks(body: ReqGetUserBanks): Observable<ResGetUserBanks> {
+    return this.httpClient.post<ResGetUserBanks>(`${this.apiURL}/api/banks/getUserBanks`, body);
   }
   public createBanks(body: ReqCreateBanks): Observable<ResCreateBanks> {
     return this.httpClient.post<ResCreateBanks>(`${this.apiURL}/api/banks/createBanks`, body);
@@ -163,5 +167,22 @@ export class ApiService {
   }
   public CreateReport(body: ReqCreateReport): Observable<ResCreateReport> {
     return this.httpClient.post<ResCreateReport>(`${this.apiURL}/api/report/createReport`, body);
+  }
+  public getUserReport(body: ReqUserReport): Observable<ResUserReport> {
+    return this.httpClient.post<ResUserReport>(`${this.apiURL}/api/report/getReportUser`, body);
+  }
+  public getUserDataReport(body: ReqUserDataReport): Observable<ResUserDataReport> {
+    return this.httpClient.post<ResUserDataReport>(`${this.apiURL}/api/report/getUserDataReport`, body);
+  }
+
+
+  public getMoney(body: ReqGetMoney): Observable<ResGetMoney> {
+    return this.httpClient.post<ResGetMoney>(`${this.apiURL}/api/money/getMoney`, body);
+  }
+  public createMoney(body: ReqCreateMoney): Observable<ResCreateMoney> {
+    return this.httpClient.post<ResCreateMoney>(`${this.apiURL}/api/money/createMoney`, body);
+  }
+  public updateMoney(body: ReqUpdateMoney): Observable<ResUpdateMoney> {
+    return this.httpClient.post<ResUpdateMoney>(`${this.apiURL}/api/money/updateMoney`, body);
   }
 }

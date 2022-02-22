@@ -52,6 +52,40 @@
                             เพิ่มที่อยู่</button>
                     </div>
                 </div>
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">ธนาคาร</h3>
+                    </div>
+                    <div class="card-body" *ngIf="DataBanks && DataBanks.data && DataBanks.data.length === 0">
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> ธนาคาร</strong>
+                        <div class="col-12">
+                            <div class="row">
+                                <p class="text-muted nav-link" type="button" name="location">ไม่มีข้อมูล
+                                </p>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body" *ngIf="DataBanks && DataBanks.data && DataBanks.data.length > 0">
+                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
+                        <div *ngFor="let showDataBanks of DataBanks.data ; index as i">
+                            <div>
+                                <p class="text-muted nav-link" type="button" name="location">
+                                    {{showDataBanks.bankName}} </p>
+                                <button type="button" class="btn btn-block bg-danger"
+                                    (click)="openModelSureDeletedBanks(showDataBanks.id)">ลบ</button>
+                                <button type="button" class="btn btn-block bg-warning"
+                                    (click)="ShowUpdateBanks(showDataBanks.id)">แก้ไข</button>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer clearfix">
+                        <button type="button" class="btn btn-primary float-right" (click)="openModelCreatBanks()"><i
+                                class="fas fa-plus"></i>
+                            เพิ่มธนาคาร</button>
+                    </div>
+                </div>
             </div>
             <div class="col-md-9">
                 <div class="card card-primary card-outline">
@@ -122,6 +156,7 @@
                                     <th>จำนวน</th>
                                     <th style="width: 90px"></th>
                                     <th style="width: 90px"></th>
+                                    <th style="width: 90px"></th>
                                 </tr>
                             </thead>
                             <tbody *ngIf="DataResStock && DataResStock.data && DataResStock.data.length > 0">
@@ -143,6 +178,9 @@
                                     <td>{{showStock.productName}}</td>
                                     <td>{{showStock.price}}</td>
                                     <td>{{showStock.volume}}</td>
+                                    <td><button type="button" class="btn btn-block bg-success"
+                                            (click)="ShowUserReport(showStock.id)">รายการสั่งซื้อ</button>
+                                    </td>
                                     <td><button type="button" class="btn btn-block bg-warning"
                                             (click)="ShowUpdateStock(showStock.id)">แก้ไขข้อมูล</button>
                                     </td>
@@ -154,10 +192,222 @@
                         </table>
                     </div>
                 </div>
+                <div class="card card-primary card-outline">
+                    <div class="card-header box-profile">
+                        ข้อมูลการขายสินค้า
+                    </div>
+                    <div class="card-body box-profile">
+                        <table class="table table-hover text-nowrap">
+                            <thead>
+                                <tr>
+                                    <th>รหัสสั่งซื้อ</th>
+                                    <th>ชื่อลูกค้า</th>
+                                    <th>จำนวน</th>
+                                    <th>ราคารวม</th>
+                                    <th>สถานะ</th>
+                                    <th>สถานที่</th>
+                                    <th>วันที่ทำรายการ</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody *ngIf="DataUserReport && DataUserReport.data && DataUserReport.data.length > 0">
+                                <tr *ngFor="let showReport of DataUserReport.data ; index as i">
+                                    <td>{{showReport.orderCode}}</td>
+                                    <td>{{showReport.customer.firstName + ' ' + showReport.customer.lastName}}</td>
+                                    <td>{{showReport.volume}}</td>
+                                    <td>{{showReport.price}}</td>
+                                    <td *ngIf="showReport.orderStatus == 0">สั่งซื้อใหม่</td>
+                                    <td *ngIf="showReport.orderStatus == 1">จ่ายเงินแล้ว</td>
+                                    <td *ngIf="showReport.orderStatus == 2">ส่งของเรียบร้อยแล้ว</td>
+                                    <td >{{showReport.location}}</td>
+                                    <td >{{showReport.createdAt | date}}</td>
+                                    <!-- <td *ngIf="showReport.orderStatus === 1" >ส่งของแล้ว</td> -->
+                                    <td *ngIf="showReport.orderStatus == 1"><button type="button"
+                                            class="btn btn-block bg-secondary"
+                                            (click)="openModelUpdateReport(showReport.id, '2')">ส่งของแล้ว</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<div class="modal fade bd-example-modal-lg" id="contentCreatBanks">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มข้อมูลธนาคาร</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalCreateBanks()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ธนาคาร</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.bankName" name="bankName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ประเภท</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.typeBk" name="typeBk">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.firstName" name="firstName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>นามสกุล</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.lastName" name="lastName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>เลขบัญชี</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control"  placeholder=""
+                                    [(ngModel)]="ngBanks.accountNumber" maxlength="10" name="accountNumber">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>สาขา</label>
+                                <span style="color: red;">*</span>
+                                <input type="tel" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="ngBanks.branch"  name="branch">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="createDataBanks()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentUpdateBanks">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">แก้ไขข้อมูลธนาคาร</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdate()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ธนาคาร</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.bankName" name="bankName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ประเภท</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.typeBk" name="typeBk">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>ชื่อ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.firstName" name="firstName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>นามสกุล</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.lastName" name="lastName">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>เลขบัญชี</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control"  placeholder=""
+                                [(ngModel)]="ngUpdateBanks.accountNumber" maxlength="10" name="accountNumber">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>สาขา</label>
+                                <span style="color: red;">*</span>
+                                <input type="tel" class="form-control" maxlength="60" placeholder=""
+                                [(ngModel)]="ngUpdateBanks.branch"  name="branch">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{ngDelivery|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="updateBanks()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="contentupdateReport">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <h4 class="modal-title" id="modal-basic-title">เพิ่มเลขพัสดุ</h4>
+                <button type="button" class="close" aria-label="Close" (click)="hideModalUpdateReport()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label>หมายเลขพัสดุ</label>
+                                <span style="color: red;">*</span>
+                                <input type="text" class="form-control" maxlength="60" placeholder=""
+                                    [(ngModel)]="updateReport.parcelNumber" name="shopName">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- {{CreateShop|json}} -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="UpdateReport2()">ส่งของแล้ว</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade bd-example-modal-lg" id="contentCreatShop">
     <div class="modal-dialog">

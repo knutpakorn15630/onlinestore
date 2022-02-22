@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/apis/api.service';
 // tslint:disable-next-line:max-line-length
 import { ReqCreateShop, ReqGetUserShop, ReqUpdateShop, ResCreateShop, ResGetUserShop } from 'src/app/services/interface/adminShop.interface';
+import { ReqCreateBanks, ReqGetUserBanks, ReqUpdateBanks, ResCreateBanks, ResGetUserBanks } from 'src/app/services/interface/banks.interface';
 import { DataIsLogin, ReqCreateAddress, ReqGetAddress, ReqUpdateAddress, ReqUpdateCustomer, ResCreateAddress, ResGetAddress } from 'src/app/services/interface/customer.interface';
+import { ReqGetReport, ReqUpdateReport2, ReqUserReport, ResUserReport } from 'src/app/services/interface/report.interface';
 import { ReqCreateStock, ReqUpdateStock, ReqUserStock, ResCreateStock, ResStock, ResUserStock } from 'src/app/services/interface/stock.interface';
 import { ReqGetTypeStoke, ResGetTypeStoke } from 'src/app/services/interface/typestoke.interface';
 import { LoginService } from 'src/app/services/login.service';
@@ -34,7 +36,13 @@ export class ProfileComponent implements OnInit {
 
   DataResStock: ResUserStock = null;
 
+  DataUserReport: ResUserReport = null;
+
   SelectedFile: File = null;
+
+  resCreateBanks: ResCreateBanks = null;
+
+  DataBanks: ResGetUserBanks = null;
 
   url: any;
 
@@ -53,6 +61,7 @@ export class ProfileComponent implements OnInit {
   constructor(private callApi: ApiService, private IsLogin: LoginService, private router: Router) {
     this.DataIsLogin = this.IsLogin.getLogin();
   }
+
 
   ngCreateAddress = {
     name: '',
@@ -89,6 +98,16 @@ export class ProfileComponent implements OnInit {
     page: 1,
   };
 
+  updateReport = {
+    id: '',
+    orderStatus: '',
+    parcelNumber: ''
+  };
+
+  ngStockId = {
+    id: '',
+  };
+
   ngUpdateStock = {
     id: '',
     productName: '',
@@ -96,6 +115,25 @@ export class ProfileComponent implements OnInit {
     price: '',
     details: '',
     shopId: ''
+  };
+
+  ngBanks = {
+    bankName: '',
+    firstName: '',
+    lastName: '',
+    typeBk: '',
+    accountNumber: '',
+    branch: ''
+  };
+
+  ngUpdateBanks = {
+    id: '',
+    bankName: '',
+    firstName: '',
+    lastName: '',
+    typeBk: '',
+    accountNumber: '',
+    branch: ''
   };
   ngUpdateProfile = {
     // id: this.DataIsLogin.id,
@@ -118,6 +156,7 @@ export class ProfileComponent implements OnInit {
     this.ShowAddress();
     this.ShowUserShop();
     this.ShowTypeStoke();
+    this.ShowUserBanks();
   }
 
   ShowAddress() {
@@ -127,6 +166,159 @@ export class ProfileComponent implements OnInit {
     this.callApi.getAddress(body).subscribe(
       (res) => {
         this.DataAddress = res;
+      }
+    );
+  }
+
+  ShowUserBanks() {
+    const body: ReqGetUserBanks = {
+      id: this.DataIsLogin.id,
+    };
+    this.callApi.getUserBanks(body).subscribe(
+      (res) => {
+        this.DataBanks = res;
+      }
+    );
+  }
+
+  createDataBanks() {
+    const body: ReqCreateBanks = {
+      bankName: this.ngBanks.bankName,
+      firstName: this.ngBanks.firstName,
+      lastName: this.ngBanks.lastName,
+      typeBk: this.ngBanks.typeBk,
+      accountNumber: this.ngBanks.accountNumber,
+      branch: this.ngBanks.branch,
+      id: this.DataIsLogin.id.toString()
+    };
+
+    // tslint:disable-next-line:max-line-length
+    if (!this.ngBanks.bankName || !this.ngBanks.firstName || !this.ngBanks.lastName || !this.ngBanks.typeBk || !this.ngBanks.accountNumber || !this.ngBanks.branch) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณากรอกข้อมูลให้ครบ!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
+    this.callApi.createBanks(body).subscribe(
+      (res) => {
+        this.Toast.fire({
+          icon: 'success',
+          title: 'ลงชื่อเข้าใช้เรียบร้อยแล้ว'
+        });
+        this.resCreateBanks = res;
+        this.ShowUserBanks();
+        this.hideModalCreateBanks();
+        this.ngBanks = {
+          bankName: '',
+          firstName: '',
+          lastName: '',
+          typeBk: '',
+          accountNumber: '',
+          branch: ''
+        };
+      },
+      (err) => {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Username นี้ถูกใช้งานไปแล้ว กรุณณาตั้ง username!',
+          showConfirmButton: false,
+          timer: 2000
+        });
+        console.log(err);
+      }
+    );
+  }
+
+  openModelSureDeletedBanks(id: number) {
+    Swal.fire({
+      title: 'ยืนยันการลบ?',
+      text: 'คุณต้องการลบข้อมูลนี้หรอไหม!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ใช้, ต้องการลบ!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire(
+          'ลบข้อมูลแล้ว!',
+          'ไฟล์ของคุณถูกลบไปแล้ว.',
+          'success'
+        );
+        this.callApi.DeleteBanks(id).subscribe(
+          (res) => {
+            this.ShowUserBanks();
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      }
+    });
+  }
+
+  ShowUpdateBanks(id: number) {
+    const DataUpdateBanks = this.DataBanks.data.find((a) => a.id === id);
+    if (!DataUpdateBanks) {
+      console.log('1');
+      return;
+    }
+    this.ngUpdateBanks = {
+      id: DataUpdateBanks.id.toString(),
+      bankName: DataUpdateBanks.bankName,
+      firstName: DataUpdateBanks.firstName,
+      lastName: DataUpdateBanks.lastName,
+      typeBk: DataUpdateBanks.typeBk,
+      accountNumber: DataUpdateBanks.accountNumber,
+      branch: DataUpdateBanks.branch
+    };
+
+    $('#contentUpdateBanks').modal('show');
+  }
+
+  updateBanks() {
+    const body: ReqUpdateBanks = {
+      id: Number(this.ngUpdateBanks.id),
+      bankName: this.ngUpdateBanks.bankName,
+      firstName: this.ngUpdateBanks.firstName,
+      lastName: this.ngUpdateBanks.lastName,
+      typeBk: this.ngUpdateBanks.typeBk,
+      accountNumber: this.ngUpdateBanks.accountNumber,
+      branch: this.ngUpdateBanks.branch
+    };
+    if (!body.bankName || !body.firstName || !body.lastName || !body.lastName || !body.typeBk || !body.accountNumber || !body.branch) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณากรอกข้อมูลให้ครบ!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
+    this.callApi.updateBanks(body).subscribe(
+      (res) => {
+        this.Toast.fire({
+          icon: 'success',
+          title: 'แก้ไขข้อมูลสำเร็จเรียบร้อยแล้ว'
+        });
+        this.ShowUserBanks();
+        this.hideModalUpdateBanks();
+      }
+    );
+  }
+
+  ShowUserReport(id: any) {
+    const body: ReqUserReport = {
+      id: Number(id),
+      orderStatus: 1
+    };
+    this.callApi.getUserReport(body).subscribe(
+      (res) => {
+        this.DataUserReport = res;
+        console.log(this.DataUserReport);
       }
     );
   }
@@ -286,6 +478,43 @@ export class ProfileComponent implements OnInit {
         );
       }
     });
+  }
+
+  openModelUpdateReport(id: any, orderStatus: string) {
+    this.updateReport = {
+      id: id.toString(),
+      orderStatus: orderStatus.toString(),
+      parcelNumber: ''
+    };
+    $('#contentupdateReport').modal('show');
+    console.log('1');
+  }
+
+  UpdateReport2() {
+    const DataUpdateReport = this.DataUserReport.data.find((a) => a.id === Number(this.updateReport.id));
+    if (!DataUpdateReport) {
+      console.log('1');
+      return;
+    }
+    const body: ReqUpdateReport2 = {
+      id: Number(this.updateReport.id),
+      orderStatus: this.updateReport.orderStatus,
+      parcelNumber: this.updateReport.parcelNumber
+    };
+    if (!body.parcelNumber) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณากรอกข้อมูลให้ครบ!',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      return;
+    }
+    this.callApi.getUpdateReport2(body).subscribe(
+      (res) => {
+        this.hideModalUpdateReport();
+      }
+    );
   }
 
   updateShop() {
@@ -634,7 +863,7 @@ export class ProfileComponent implements OnInit {
     this.EmptyDataAddress();
   }
 
-  hideModalUpdateStock(){
+  hideModalUpdateStock() {
     $('#contentUpdateStock').modal('hide');
     this.EmptyUpdateStock();
   }
@@ -644,7 +873,25 @@ export class ProfileComponent implements OnInit {
     this.EmptyData();
   }
 
-  EmptyUpdateStock(){
+  hideModalUpdateReport() {
+    $('#contentupdateReport').modal('hide');
+    this.EmptyData();
+  }
+
+  openModelCreatBanks() {
+    $('#contentCreatBanks').modal('show');
+    console.log('1');
+  }
+
+  hideModalCreateBanks() {
+    $('#contentCreatBanks').modal('hide');
+  }
+
+  hideModalUpdateBanks() {
+    $('#contentUpdateBanks').modal('hide');
+  }
+
+  EmptyUpdateStock() {
     this.ngUpdateStock = {
       id: '',
       productName: '',
