@@ -126,15 +126,16 @@
                                     </address>
                                 </div>
 
-                                <div class="col-sm-4 invoice-col">  
+                                <div class="col-sm-4 invoice-col">
                                     ถึง
-                                    <address >
+                                    <address>
                                         <strong>{{DataIsLogin.firstName + ' ' + DataIsLogin.lastName}}</strong><br>
                                         <div class="form-group">
                                             <label for="address">ที่อยู่</label>
-                                            <select class="custom-select" [(ngModel)]="ngCreateReport.location" >
-                                                <option  *ngFor="let showAddress of DataAddress.data ; index as i"
-                                                    value="{{showAddress.addressName}}">{{showAddress.addressName}}</option>
+                                            <select class="custom-select" [(ngModel)]="ngCreateReport.location">
+                                                <option *ngFor="let showAddress of DataAddress.data ; index as i"
+                                                    value="{{showAddress.addressName}}">{{showAddress.addressName}}
+                                                </option>
                                             </select>
                                         </div>
                                     </address>
@@ -166,15 +167,40 @@
                                 </div>
                                 <!-- {{ngCreateReport|json}} -->
                             </div>
+                            <div class="col-6">
+                                <p class="lead">โอนเงินด้วยธนาคารนี้:</p>
+                                <img src="../assets/dist/img/credit/visa.png" alt="Visa">
+                                <img src="../assets/dist/img/credit/mastercard.png" alt="Mastercard">
+                                <img src="../assets/dist/img/credit/american-express.png" alt="American Express">
+                                <img src="../assets/dist/img/credit/paypal2.png" alt="Paypal">
+                                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                    ธนาคาร : กรุงไทย
+                                </p>
+                                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                    ชื่อ-นามสกุล : ณัชปกรณ์ จันทร์เลื่อน
+                                </p>
+                                <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                                    เลขบัญชี : 8080628599
+                                </p>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label for="file_input">รูปสลิป</label>
+                                    <div class="input-group">
+                                        <div class="custom-file">
+                                            <input type="file" id="file_input" (change)="onFileSelected($event)">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row no-print">
                                 <div class="col-12">
-                                    <button type="button" class="btn btn-success float-right" (click)="CreateReport()"><i
-                                            class="far fa-credit-card"></i> สั่งซื้อ
+                                    <button type="button" class="btn btn-success float-right"
+                                        (click)="CreateReport(); uploadImg()"><i class="far fa-credit-card"></i> สั่งซื้อ
                                     </button>
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

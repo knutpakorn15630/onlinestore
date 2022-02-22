@@ -50,6 +50,7 @@ export interface DataResGetReport {
     stocksId: number;
     customer: Customer;
     stocks: Stocks;
+    imgReport: ImgReport[];
 }
 
 export interface Customer {
@@ -76,6 +77,17 @@ export interface Stocks {
     shopId: number;
     typeStockId: number;
 }
+
+export interface ImgReport {
+    id: number;
+    imgName: string;
+    imgPre: number;
+    imgGallery: any;
+    createdAt: string;
+    updatedAt: string;
+    reportId: number;
+}
+
 
 
 export interface ReqUpdateReport {
@@ -219,3 +231,11 @@ export interface Stocks {
     typeStockId: number;
 }
 
+export interface ResUploadReport {
+    id: number;
+    imgName: string;
+    reportId: string;
+    imgPre: number;
+    updatedAt: string;
+    createdAt: string;
+}

@@ -11,7 +11,7 @@ import { ReqCreateShop, ReqGetUserShop, ReqShop, ReqUpdateShop, ResCreateShop, R
 import { ReqCreateStock, ReqReportStock, ReqStock, ReqUpdateStock, ReqUserStock, ResCreateStock, ResReportStock, ResStock, ResUpdateStock, ResUploadStock, ResUserStock } from '../interface/stock.interface';
 import { ReqBasket, ReqCreateBasket, ReqUpdateBasket, ReqUserBasket, ResBasket, ResCreateBasket, ResUpdateBasket, ResUserBasket } from '../interface/basket.interface';
 // tslint:disable-next-line:max-line-length
-import { ReqCreateReport, ReqGetReport, ReqUpdateReport, ReqUpdateReport2, ReqUserDataReport, ReqUserReport, ResCreateReport, ResGetReport, ResUpdateReport, ResUpdateReport2, ResUserDataReport, ResUserReport } from '../interface/report.interface';
+import { ReqCreateReport, ReqGetReport, ReqUpdateReport, ReqUpdateReport2, ReqUserDataReport, ReqUserReport, ResCreateReport, ResGetReport, ResUpdateReport, ResUpdateReport2, ResUploadReport, ResUserDataReport, ResUserReport } from '../interface/report.interface';
 import { ReqCreateMoney, ReqGetMoney, ReqUpdateMoney, ResCreateMoney, ResGetMoney, ResUpdateMoney } from '../interface/money.interface';
 
 @Injectable({
@@ -173,6 +173,11 @@ export class ApiService {
   }
   public getUserDataReport(body: ReqUserDataReport): Observable<ResUserDataReport> {
     return this.httpClient.post<ResUserDataReport>(`${this.apiURL}/api/report/getUserDataReport`, body);
+  }
+  public uploadImgReport(file: any, BId: any): Observable<ResUploadReport> {
+    const formData: FormData = new FormData();
+    formData.append('upload', file, file.name);
+    return this.httpClient.post<ResUploadReport>(`${this.apiURL}/api/report/uploadReport/${BId}`, formData);
   }
 
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/services/apis/api.service';
+import { ReqBanks, ResBanks } from 'src/app/services/interface/banks.interface';
 import { ReqBasket, ReqUpdateBasket, ReqUserBasket, ResUserBasket } from 'src/app/services/interface/basket.interface';
 import { DataIsLogin, ReqGetAddress, ResGetAddress } from 'src/app/services/interface/customer.interface';
 import { ReqCreateReport, ResCreateReport } from 'src/app/services/interface/report.interface';
@@ -26,6 +27,8 @@ export class BasketComponent implements OnInit {
 
   DataAddress: ResGetAddress = null;
 
+  DataBanks: ResBanks = null;
+
   Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -37,6 +40,7 @@ export class BasketComponent implements OnInit {
       toast.addEventListener('mouseleave', Swal.resumeTimer);
     }
   });
+
 
   ngUpdateBasket = {
     id: '',
@@ -70,6 +74,14 @@ export class BasketComponent implements OnInit {
     id: ''
   };
 
+  ngData = {
+    perPages: 10,
+    page: 1,
+  };
+
+  SelectedFile: File = null;
+  url: any;
+
   constructor(private callApi: ApiService, private IsLogin: LoginService) {
     this.DataIsLogin = this.IsLogin.getLogin();
   }
@@ -77,6 +89,7 @@ export class BasketComponent implements OnInit {
   ngOnInit(): void {
     this.ShowBasket();
     this.ShowAddress();
+    this.ShowBanks();
   }
 
   ShowAddress() {
@@ -86,6 +99,61 @@ export class BasketComponent implements OnInit {
     this.callApi.getAddress(body).subscribe(
       (res) => {
         this.DataAddress = res;
+      }
+    );
+  }
+
+  onFileSelected(event) {
+    this.SelectedFile = event.target.files[0];
+
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = e => this.url = reader.result;
+
+      reader.readAsDataURL(file);
+      console.log('this URL ', this.url);
+    }
+  }
+
+  uploadImg() {
+    this.callApi.uploadImgPre(this.SelectedFile, this.DataCreateReport.id).subscribe(
+      (res) => {
+        console.log(res);
+      }
+    );
+  }
+
+  openModelSureUploadImg() {
+    Swal.fire({
+      title: 'ยืนยันการสั่งซื้อ?',
+      icon: 'success',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'ใช้, ต้องการลบ!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.callApi.uploadImgReport(this.SelectedFile, this.DataCreateReport.id).subscribe(
+      (res) => {
+        console.log(res);
+      }
+        );
+      }
+    });
+  }
+
+
+  ShowBanks() {
+    const body: ReqBanks = {
+      perPage: this.ngData.perPages,
+      page: this.ngData.page
+    };
+    this.callApi.getBanks(body).subscribe(
+      (res) => {
+        this.DataBanks = res;
+        console.log('wwwwwwww', this.DataBanks.data);
       }
     );
   }
@@ -145,6 +213,7 @@ export class BasketComponent implements OnInit {
         });
         this.DataCreateReport = res;
         this.hideModalCreate();
+        this.openModelSureUploadImg();
         // setTimeout(() => {
         //       this.hideModalCreateDelete(this.ngCreateReport.id);
         // }, 3000);

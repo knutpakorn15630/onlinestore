@@ -46,6 +46,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
+                                        <th>*</th>
                                         <th>รหัสสั่งซื้อ</th>
                                         <th>ชื่อลูกค้า</th>
                                         <th>จำนวน</th>
@@ -63,6 +64,12 @@
                                 </tbody>
                                 <tbody *ngIf="DataReport && DataReport.data && DataReport.data.length > 0">
                                     <tr *ngFor="let showReport of DataReport.data ; index as i">
+                                        <td *ngIf="showReport.imgReport">
+                                            <div class="product-img"  *ngFor="let showImg of showReport.imgReport">
+                                                <img [src]="'http://localhost:3200/img/resources/static/assets/upload/'+showImg.imgName"
+                                                    alt="Product Image" class="img-size-50">
+                                            </div>
+                                        </td>
                                         <td>{{showReport.orderCode}}</td>
                                         <td>{{showReport.customer.firstName + ' ' + showReport.customer.lastName}}</td>
                                         <td>{{showReport.volume}}</td>
