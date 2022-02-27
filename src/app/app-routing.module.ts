@@ -27,8 +27,8 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-  canActivate: [LoginGuard],
-  path: 'shops',
+    canActivate: [LoginGuard],
+    path: 'shops',
     component: ShopsComponent,
     children: [
       {
