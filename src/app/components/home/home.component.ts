@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   ngPang = '15';
 
   ngData = {
-    perPages: 10,
+    perPages: 100,
     page: 1,
   };
 

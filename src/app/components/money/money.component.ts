@@ -14,7 +14,7 @@ export class MoneyComponent implements OnInit {
   DataMoney: ResGetMoney = null;
 
   ngData = {
-    perPages: 10,
+    perPages: 100,
     page: 1,
   };
   Toast = Swal.mixin({

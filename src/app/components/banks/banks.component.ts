@@ -20,7 +20,7 @@ export class BanksComponent implements OnInit {
   DataIsLogin: DataIsLogin = null;
 
   ngData = {
-    perPages: 10,
+    perPages: 100,
     page: 1,
   };
 

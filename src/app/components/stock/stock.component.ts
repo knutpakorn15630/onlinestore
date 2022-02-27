@@ -14,7 +14,7 @@ declare var $: any;
 export class StockComponent implements OnInit {
 
   ngData = {
-    perPages: 10,
+    perPages: 100,
     page: 1,
   };
 

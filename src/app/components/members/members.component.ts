@@ -16,7 +16,7 @@ export class MembersComponent implements OnInit {
   resCreateCustomer: ResCreateCustomer = null;
 
   ngData = {
-    perPages: 10,
+    perPages: 100,
     page: 1,
   };
 

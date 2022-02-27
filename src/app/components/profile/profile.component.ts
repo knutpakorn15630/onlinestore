@@ -94,7 +94,7 @@ export class ProfileComponent implements OnInit {
   };
 
   ngData = {
-    perPages: 10,
+    perPages: 100,
     page: 1,
   };
 
